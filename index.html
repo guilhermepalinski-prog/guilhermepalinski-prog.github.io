@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto Agrinho 2026</title>
+
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; background-color: #f4f9f4; color: #333; transition: 0.3s; }
+        header { background-color: #2e7d32; color: white; padding: 20px; text-align: center; border-radius: 5px; }
+        section { background: white; padding: 20px; margin-top: 20px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); color: #333; }
+        footer { margin-top: 30px; text-align: center; font-size: 0.9em; color: #666; }
+        
+        /* Estilo do botão que o JavaScript vai usar */
+        .btn-tema { background-color: #2e7d32; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-size: 1dvw; margin-top: 10px; }
+        
+        /* Estilo do Modo Escuro (Ativado pelo JavaScript) --> */
+        body.modo-escuro { background-color: #1e1e1e; color: #f4f9f4; }
+        body.modo-escuro section { background-color: #2d2d2d; color: #fff; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Projeto Agrinho 2026</h1>
+        <p>Tema do Trabalho: [Insira o Tema Aqui]</p>
+        <button class="btn-tema" onclick="mudarTema()">Alternar Modo Escuro</button>
+    </header>
+
+    <section>
+        <h2>Introdução</h2>
+        <p>Escreva aqui o resumo ou a introdução sobre o seu projeto do Agrinho.</p>
+    </section>
+
+    <section>
+        <h2>Desenvolvimento</h2>
+        <p>Aqui você pode colocar os principais dados e ideias do seu grupo.</p>
+    </section>
+
+    <footer>
+        <p>Componentes: [Seu Nome] | Escola: [Nome da Escola]</p>
+    </footer>
+
+    <script>
+        function mudarTema() {
+            // Essa linha avisa ao navegador para ligar/desligar o modo escuro no site
+            document.body.classList.toggle("modo-escuro");
+        }
+    </script>
+
+</body>
+</html>
