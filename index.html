@@ -11,20 +11,42 @@
         section { background: white; padding: 20px; margin-top: 20px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); color: #333; }
         footer { margin-top: 30px; text-align: center; font-size: 0.9em; color: #666; }
         
-        /* Estilo do botão que o JavaScript vai usar */
-        .btn-tema { background-color: #2e7d32; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-size: 1dvw; margin-top: 10px; }
+        /* Botão em formato de quadradinho fixo no canto superior direito */
+        .btn-tema { 
+            position: fixed; 
+            top: 15px; 
+            right: 15px; 
+            background-color: #ffffff; 
+            color: #2e7d32; 
+            border: 2px solid #2e7d32; 
+            padding: 8px 12px; 
+            border-radius: 8px; /* Cantos levemente arredondados para o quadradinho */
+            cursor: pointer; 
+            font-size: 1.3rem; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15); /* Sombra para dar destaque */
+            z-index: 1000; 
+            transition: 0.3s;
+        }
         
-        /* Estilo do Modo Escuro (Ativado pelo JavaScript) --> */
+        /* Estilo do Modo Escuro */
         body.modo-escuro { background-color: #1e1e1e; color: #f4f9f4; }
         body.modo-escuro section { background-color: #2d2d2d; color: #fff; }
+        
+        /* Ajuste das cores do quadradinho no modo escuro */
+        body.modo-escuro .btn-tema { 
+            background-color: #2d2d2d; 
+            color: #ffffff; 
+            border: 2px solid #ffffff; 
+        }
     </style>
 </head>
 <body>
 
+    <button class="btn-tema" id="botaoTema" onclick="mudarTema()">🌙</button>
+
     <header>
         <h1>Projeto Agrinho 2026</h1>
         <p>Tema do Trabalho: [Insira o Tema Aqui]</p>
-        <button class="btn-tema" onclick="mudarTema()">Alternar Modo Escuro</button>
     </header>
 
     <section>
@@ -43,8 +65,14 @@
 
     <script>
         function mudarTema() {
-            // Essa linha avisa ao navegador para ligar/desligar o modo escuro no site
             document.body.classList.toggle("modo-escuro");
+            const botao = document.getElementById("botaoTema");
+            
+            if (document.body.classList.contains("modo-escuro")) {
+                botao.innerText = "☀️";
+            } else {
+                botao.innerText = "🌙";
+            }
         }
     </script>
 
