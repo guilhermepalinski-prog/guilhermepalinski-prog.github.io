@@ -3,59 +3,227 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projeto Agrinho 2026</title>
-
+    <title>AgroQuest: Green Frontier - Agrinho 2026</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; background-color: #f4f9f4; color: #333; transition: 0.3s; }
-        
-        /* Deixamos o header relativo para o botão se alinhar dentro dele */
-        header { position: relative; background-color: #2e7d32; color: white; padding: 20px; text-align: center; border-radius: 5px; }
-        
-        section { background: white; padding: 20px; margin-top: 20px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); color: #333; }
-        footer { margin-top: 30px; text-align: center; font-size: 0.9em; color: #666; }
-        
-        /* Botão simplificado e posicionado dentro do quadrado verde */
-        .btn-tema { 
-            position: absolute; 
-            top: 15px; 
-            right: 15px; 
-            background: none; 
-            color: white; 
-            border: none; 
-            cursor: pointer; 
-            font-size: 1.4rem; 
-            padding: 5px;
+        /* Configurações Gerais - Efeito Dia (Padrão) */
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box;
+            /* Degradê de Dia: Azul céu que vai clareando até o branco */
+            background: linear-gradient(180deg, #b3e5fc 0%, #e3f2fd 35%, #ffffff 70%);
+            background-attachment: fixed; /* Mantém o fundo fixo ao rolar a página */
+            color: #2c3e50;
+            text-align: center;
+            transition: background 0.5s ease, color 0.3s ease; /* Transição suave */
+            min-height: 100vh;
+        }
+
+        /* Menu de Navegação Superior (Navbar) */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: 0.5s;
+        }
+        .logo {
+            font-weight: bold;
+            font-size: 1.4rem;
+            color: #2e7d32;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .menu-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .menu-links a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            font-size: 0.95rem;
             transition: 0.3s;
         }
         
-        /* Estilo do Modo Escuro */
-        body.modo-escuro { background-color: #1e1e1e; color: #f4f9f4; }
-        body.modo-escuro section { background-color: #2d2d2d; color: #fff; }
+        /* Botão de Ação do Menu */
+        .btn-nav {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Botão de Modo Escuro integrado no menu */
+        .btn-tema {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.3rem;
+            color: #333;
+            padding: 5px;
+        }
+
+        /* Seção Principal (Hero) */
+        .hero {
+            padding: 60px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .icone-planta {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .hero h1 {
+            color: #1b5e20;
+            font-size: 3rem;
+            margin: 0 0 15px 0;
+            line-height: 1.1;
+            transition: 0.3s;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            transition: 0.3s;
+        }
+
+        /* Container de Botões do Hero */
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 50px;
+        }
+        .btn-principal {
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            font-weight: bold;
+            font-size: 0.95rem;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: 0.2s;
+        }
+        .btn-laranja { background-color: #ffa000; color: white; }
+        .btn-verde { background-color: #4caf50; color: white; }
+        .btn-principal:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
+
+        /* Conteúdo do Trabalho (Seções inferiores) */
+        .conteudo {
+            background-color: #4caf50;
+            color: white;
+            padding: 40px 20px;
+            margin-top: 40px;
+            transition: 0.5s;
+        }
+        .conteudo h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+        }
+        .card-secao {
+            background: white;
+            color: #333;
+            max-width: 700px;
+            margin: 0 auto 20px auto;
+            padding: 25px;
+            border-radius: 8px;
+            text-align: left;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: 0.5s;
+        }
+        .card-secao h3 { color: #1b5e20; margin-top: 0; transition: 0.3s; }
+
+        footer {
+            padding: 30px 20px;
+            background-color: #f5f5f5;
+            color: #777;
+            font-size: 0.9rem;
+            transition: 0.5s;
+        }
+
+        /* ==========================================
+           --- CONFIGURAÇÕES DO MODO ESCURO (NOITE) ---
+           ========================================== */
+        body.modo-escuro {
+            /* Degradê de Noite: Azul marinho bem escuro misturado com preto espacial */
+            background: linear-gradient(180deg, #0d1b2a 0%, #1b263b 40%, #000814 85%);
+            color: #e0e0e0;
+        }
+        body.modo-escuro nav { 
+            background-color: rgba(13, 27, 42, 0.95); 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+        }
+        body.modo-escuro .menu-links a { color: #e0e0e0; }
+        body.modo-escuro .btn-tema { color: #fff; }
+        body.modo-escuro .hero h1 { color: #81c784; }
+        body.modo-escuro .hero p { color: #b0bec5; }
         
-        /* No modo escuro, o botão fica escuro para contrastar se necessário, mas como está no header verde, mantemos branco ou cinza claro */
-        body.modo-escuro .btn-tema { color: #f4f9f4; }
+        /* Ajuste do container verde inferior para combinar com a noite */
+        body.modo-escuro .conteudo { background-color: #1b4d3e; }
+        body.modo-escuro .card-secao { background-color: #1e293b; color: #f8fafc; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        body.modo-escuro .card-secao h3 { color: #81c784; }
+        body.modo-escuro footer { background-color: #0b0f19; color: #555; }
     </style>
 </head>
 <body>
 
-    <header>
-        <button class="btn-tema" id="botaoTema" onclick="mudarTema()">☾</button>
-        <h1>Projeto Agrinho 2026</h1>
-        <p>Tema do Trabalho: [Insira o Tema Aqui]</p>
-    </header>
+    <nav>
+        <div class="logo">🚜 AgroQuest</div>
+        <ul class="menu-links">
+            <li><a href="#introducao">Introdução</a></li>
+            <li><a href="#desenvolvimento">Desenvolvimento</a></li>
+            <li><a href="#piskel">Nossa Arte</a></li>
+        </ul>
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <button class="btn-nav">JOGAR SUSTENTABILIDADE</button>
+            <button class="btn-tema" id="botaoTema" onclick="mudarTema()">☾</button>
+        </div>
+    </nav>
 
-    <section>
-        <h2>Introdução</h2>
-        <p>Escreva aqui o resumo ou a introdução sobre o seu projeto do Agrinho.</p>
-    </section>
+    <div class="hero">
+        <div class="icone-planta">🌱</div>
+        <h1>AgroQuest:<br>Green Frontier.</h1>
+        <p>O equilíbrio entre o campo e a floresta não é apenas possível, é o nosso próximo nível. Descubra como o Agro está hackeando a sustentabilidade.</p>
+        
+        <div class="cta-buttons">
+            <button class="btn-principal" style="background-color: #ffb300; color: white;">VER DASHBOARD REAL</button>
+            <button class="btn-principal btn-verde">COLETAR INSÍGNIA VERDE</button>
+        </div>
+    </div>
 
-    <section>
-        <h2>Desenvolvimento</h2>
-        <p>Aqui você pode colocar os principais dados e ideias do seu grupo.</p>
-    </section>
+    <div class="conteudo">
+        <h2>Estatísticas da Nossa Fazenda Global</h2>
+        
+        <div id="introducao" class="card-secao">
+            <h3>Introdução</h3>
+            <p>Escreva aqui o resumo ou a introdução sobre o seu projeto do Agrinho de 2026. Alinhando tecnologia e o campo!</p>
+        </div>
+
+        <div id="desenvolvimento" class="card-secao">
+            <h3>Desenvolvimento</h3>
+            <p>Aqui você pode colocar os principais dados, ideias e soluções que seu grupo desenvolveu para o projeto.</p>
+        </div>
+
+        <div id="piskel" class="card-secao" style="text-align: center;">
+            <h3>Galeria Pixel Art</h3>
+            <p>Espaço reservado para colocar a imagem que você criou no Piskel!</p>
+        </div>
+    </div>
 
     <footer>
-        <p>Componentes: [Seu Nome] | Escola: [Nome da Escola]</p>
+        <p>Componentes: [Seu Nome e Grupo] | Escola: [Nome da Escola] | Agrinho 2026</p>
     </footer>
 
     <script>
@@ -64,10 +232,8 @@
             const botao = document.getElementById("botaoTema");
             
             if (document.body.classList.contains("modo-escuro")) {
-                // Símbolo de um sol heráldico/preto e branco
                 botao.innerText = "☼";
             } else {
-                // Símbolo de lua crescente em texto
                 botao.innerText = "☾";
             }
         }
