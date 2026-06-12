@@ -5,28 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AgroQuest: Green Frontier - Agrinho 2026</title>
     <style>
-        /* Fundo Dinâmico (Dia) */
+        /* Configurações Gerais - Fundo Dinâmico (Dia) */
         body { 
             font-family: 'Segoe UI', sans-serif; 
             margin: 0; 
             padding: 0; 
+            box-sizing: border-box;
             background: linear-gradient(180deg, #b3e5fc 0%, #e3f2fd 35%, #ffffff 70%);
             background-attachment: fixed;
             color: #2c3e50;
             text-align: center;
-            transition: background 0.5s ease, color 0.3s ease;
+            transition: background 0.5s ease, color 0.3s ease, font-size 0.2s ease;
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
+            font-size: 16px;
         }
 
-        /* --- ELEMENTOS DO CENÁRIO (CÉU) --- */
-        
-        /* Astro: Começa como Sol Amarelo no Dia */
+        /* --- ELEMENTOS DO CÉU --- */
         .astro {
             position: absolute;
             top: 80px;
-            left: 10%;
+            left: 5%;
             width: 60px;
             height: 60px;
             background-color: #ffb300;
@@ -35,8 +35,6 @@
             transition: 0.5s ease;
             z-index: 1;
         }
-
-        /* Nuvens do Dia */
         .nuvem {
             position: absolute;
             background-color: rgba(255, 255, 255, 0.85);
@@ -44,15 +42,16 @@
             transition: 0.5s ease;
             z-index: 1;
         }
-        .n1 { top: 100px; right: 15%; width: 100px; height: 35px; }
-        .n2 { top: 150px; left: 25%; width: 130px; height: 40px; }
+        .n1 { top: 100px; right: 10%; width: 100px; height: 35px; }
+        .n2 { top: 160px; left: 15%; width: 130px; height: 40px; }
 
-        /* Menu de Navegação */
+        /* Menu de Navegação Superior (Adaptável) */
         nav {
             display: flex;
+            flex-direction: row;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 40px;
+            padding: 15px 5%;
             background-color: rgba(255, 255, 255, 0.9);
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             position: relative;
@@ -63,20 +62,87 @@
         .menu-links { display: flex; gap: 20px; list-style: none; margin: 0; padding: 0; }
         .menu-links a { text-decoration: none; color: #555; font-weight: 500; }
         .btn-nav { background-color: #4caf50; color: white; border: none; padding: 8px 16px; border-radius: 20px; font-weight: bold; cursor: pointer; }
-        .btn-tema { background: none; border: none; cursor: pointer; font-size: 1.3rem; color: #333; }
 
-        /* Conteúdo Principal */
+        /* --- PAINEL DE ACESSIBILIDADE --- */
+        .container-acessibilidade {
+            position: relative;
+            z-index: 100;
+        }
+        .btn-acessibilidade {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #333;
+            padding: 5px;
+        }
+        .menu-acessibilidade {
+            display: none;
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background-color: white;
+            border: 2px solid #2e7d32;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            width: 160px;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .menu-acessibilidade.ativo { display: flex; }
+        .btn-opcao {
+            background-color: #f4f9f4;
+            color: #2e7d32;
+            border: 1px solid #2e7d32;
+            padding: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        .btn-opcao:hover { background-color: #2e7d32; color: white; }
+
+        /* Conteúdo Principal (Hero) */
         .hero { padding: 60px 20px; max-width: 800px; margin: 0 auto; position: relative; z-index: 2; }
-        .hero h1 { color: #1b5e20; font-size: 3rem; margin-bottom: 15px; transition: 0.3s; }
+        .hero h1 { color: #1b5e20; font-size: 3rem; margin-bottom: 15px; line-height: 1.2; }
         .hero p { font-size: 1.1rem; color: #555; margin-bottom: 30px; }
         
-        .conteudo { background-color: #4caf50; color: white; padding: 40px 20px; margin-top: 40px; position: relative; z-index: 2; transition: 0.5s; }
-        .card-secao { background: white; color: #333; max-width: 700px; margin: 0 auto 20px auto; padding: 25px; border-radius: 8px; text-align: left; }
+        /* Seções de Conteúdo */
+        .conteudo { background-color: #4caf50; color: white; padding: 40px 20px; position: relative; z-index: 2; transition: 0.5s; }
+        .card-secao { background: white; color: #333; max-width: 700px; margin: 0 auto 20px auto; padding: 25px; border-radius: 8px; text-align: left; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .card-secao h3 { color: #1b5e20; margin-top: 0; }
         footer { padding: 30px 20px; background-color: #f5f5f5; color: #777; font-size: 0.9rem; }
 
         /* ==========================================
-           --- ALTERAÇÕES DO MODO ESCURO (NOITE) ---
+           --- CONFIGURAÇÕES DE RESPONSIVIDADE ---
+           ========================================== */
+        
+        /* Para Telas Menores (Tablets e Celulares) */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column; /* Faz os itens do topo ficarem em fila vertical */
+                gap: 15px;
+                padding: 15px 20px;
+            }
+            .menu-links {
+                gap: 15px;
+                flex-wrap: wrap; /* Se faltar espaço no celular, os links quebram a linha organizados */
+                justify-content: center;
+            }
+            .hero h1 {
+                font-size: 2.2rem; /* Diminui o título para não cortar nas telas de celulares */
+            }
+            .astro {
+                width: 45px; /* Diminui o sol/lua para não atrapalhar no celular */
+                height: 45px;
+                top: 180px;
+            }
+            .n2 { display: none; } /* Esconde uma das nuvens em telas pequenas para não poluir o visual */
+        }
+
+        /* ==========================================
+           --- CONFIGURAÇÕES DO MODO ESCURO ---
            ========================================== */
         body.modo-escuro {
             background: linear-gradient(180deg, #0d1b2a 0%, #1b263b 40%, #000814 85%);
@@ -84,25 +150,18 @@
         }
         body.modo-escuro nav { background-color: rgba(13, 27, 42, 0.95); }
         body.modo-escuro .menu-links a { color: #e0e0e0; }
-        body.modo-escuro .btn-tema { color: #fff; }
+        body.modo-escuro .btn-acessibilidade { color: #fff; }
+        body.modo-escuro .menu-acessibilidade { background-color: #1e293b; border-color: #81c784; }
+        body.modo-escuro .btn-opcao { background-color: #2d3748; color: #81c784; border-color: #81c784; }
+        body.modo-escuro .btn-opcao:hover { background-color: #81c784; color: #1e293b; }
         body.modo-escuro .hero h1 { color: #81c784; }
         body.modo-escuro .hero p { color: #b0bec5; }
         body.modo-escuro .conteudo { background-color: #1b4d3e; }
         body.modo-escuro .card-secao { background-color: #1e293b; color: #f8fafc; }
         body.modo-escuro .card-secao h3 { color: #81c784; }
         body.modo-escuro footer { background-color: #0b0f19; }
-
-        /* Transformação do Astro: O Sol vira uma Lua Cinzenta */
-        body.modo-escuro .astro {
-            background-color: #d1d5db;
-            box-shadow: 0 0 20px #ffffff80;
-            left: 85%; /* A lua vai para o outro lado do céu */
-        }
-
-        /* Transformação das Nuvens: Ficam escuras/transparentes na noite */
-        body.modo-escuro .nuvem {
-            background-color: rgba(255, 255, 255, 0.15);
-        }
+        body.modo-escuro .astro { background-color: #d1d5db; box-shadow: 0 0 20px #ffffff80; left: 85%; }
+        body.modo-escuro .nuvem { background-color: rgba(255, 255, 255, 0.15); }
     </style>
 </head>
 <body>
@@ -118,9 +177,18 @@
             <li><a href="#desenvolvimento">Desenvolvimento</a></li>
             <li><a href="#piskel">Nossa Arte</a></li>
         </ul>
+        
         <div style="display: flex; align-items: center; gap: 15px;">
-            <button class="btn-nav">JOGAR SUSTENTABILIDADE</button>
-            <button class="btn-tema" id="botaoTema" onclick="mudarTema()">☾</button>
+            <button class="btn-nav">JOGAR</button>
+            <div class="container-acessibilidade">
+                <button class="btn-acessibilidade" onclick="toggleMenu()">⚙️</button>
+                <div class="menu-acessibilidade" id="menuAcessivel">
+                    <button class="btn-opcao" id="btnTema" onclick="mudarTema()">Tema: ☾</button>
+                    <button class="btn-opcao" onclick="mudarFonte(2)">Letra A+</button>
+                    <button class="btn-opcao" onclick="mudarFonte(-2)">Letra A-</button>
+                    <button class="btn-opcao" onclick="ouvirTexto()">Ouvir Texto 🔊</button>
+                </div>
+            </div>
         </div>
     </nav>
 
@@ -129,14 +197,14 @@
         <p>O equilíbrio entre o campo e a floresta não é apenas possível, é o nosso próximo nível.</p>
     </div>
 
-    <div class="conteudo">
+    <div class="conteudo" id="textoDoTrabalho">
         <div id="introducao" class="card-secao">
             <h3>Introdução</h3>
-            <p>[Seu texto aqui]</p>
+            <p>Escreva aqui o resumo ou a introdução sobre o seu projeto do Agrinho de 2026. Alinhando tecnologia e o campo!</p>
         </div>
         <div id="desenvolvimento" class="card-secao">
             <h3>Desenvolvimento</h3>
-            <p>[Seu texto aqui]</p>
+            <p>Aqui você pode colocar os principais dados, ideias e soluções que seu grupo desenvolveu para o projeto.</p>
         </div>
         <div id="piskel" class="card-secao">
             <h3>Galeria Pixel Art</h3>
@@ -149,157 +217,39 @@
     </footer>
 
     <script>
+        function toggleMenu() {
+            const menu = document.getElementById("menuAcessivel");
+            menu.classList.toggle("ativo");
+        }
+
         function mudarTema() {
             document.body.classList.toggle("modo-escuro");
-            const botao = document.getElementById("botaoTema");
+            const btn = document.getElementById("btnTema");
             if (document.body.classList.contains("modo-escuro")) {
-                botao.innerText = "☼";
+                btn.innerText = "Tema: ☼";
             } else {
-                botao.innerText = "☾";
+                btn.innerText = "Tema: ☾";
             }
         }
-    </script>
-</body>
-</html>
-        /* Container de Botões do Hero */
-        .cta-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 50px;
-        }
-        .btn-principal {
-            padding: 12px 24px;
-            border-radius: 8px;
-            border: none;
-            font-weight: bold;
-            font-size: 0.95rem;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: 0.2s;
-        }
-        .btn-laranja { background-color: #ffa000; color: white; }
-        .btn-verde { background-color: #4caf50; color: white; }
-        .btn-principal:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
 
-        /* Conteúdo do Trabalho (Seções inferiores) */
-        .conteudo {
-            background-color: #4caf50;
-            color: white;
-            padding: 40px 20px;
-            margin-top: 40px;
-            transition: 0.5s;
-        }
-        .conteudo h2 {
-            font-size: 2rem;
-            margin-bottom: 30px;
-        }
-        .card-secao {
-            background: white;
-            color: #333;
-            max-width: 700px;
-            margin: 0 auto 20px auto;
-            padding: 25px;
-            border-radius: 8px;
-            text-align: left;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: 0.5s;
-        }
-        .card-secao h3 { color: #1b5e20; margin-top: 0; transition: 0.3s; }
-
-        footer {
-            padding: 30px 20px;
-            background-color: #f5f5f5;
-            color: #777;
-            font-size: 0.9rem;
-            transition: 0.5s;
+        let tamanhoAtual = 16; 
+        function mudarFonte(valor) {
+            tamanhoAtual += valor;
+            if(tamanhoAtual < 12) tamanhoAtual = 12;
+            if(tamanhoAtual > 24) tamanhoAtual = 24;
+            document.body.style.fontSize = tamanhoAtual + "px";
         }
 
-        /* ==========================================
-           --- CONFIGURAÇÕES DO MODO ESCURO (NOITE) ---
-           ========================================== */
-        body.modo-escuro {
-            /* Degradê de Noite: Azul marinho bem escuro misturado com preto espacial */
-            background: linear-gradient(180deg, #0d1b2a 0%, #1b263b 40%, #000814 85%);
-            color: #e0e0e0;
-        }
-        body.modo-escuro nav { 
-            background-color: rgba(13, 27, 42, 0.95); 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.4);
-        }
-        body.modo-escuro .menu-links a { color: #e0e0e0; }
-        body.modo-escuro .btn-tema { color: #fff; }
-        body.modo-escuro .hero h1 { color: #81c784; }
-        body.modo-escuro .hero p { color: #b0bec5; }
-        
-        /* Ajuste do container verde inferior para combinar com a noite */
-        body.modo-escuro .conteudo { background-color: #1b4d3e; }
-        body.modo-escuro .card-secao { background-color: #1e293b; color: #f8fafc; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        body.modo-escuro .card-secao h3 { color: #81c784; }
-        body.modo-escuro footer { background-color: #0b0f19; color: #555; }
-    </style>
-</head>
-<body>
-
-    <nav>
-        <div class="logo">🚜 AgroQuest</div>
-        <ul class="menu-links">
-            <li><a href="#introducao">Introdução</a></li>
-            <li><a href="#desenvolvimento">Desenvolvimento</a></li>
-            <li><a href="#piskel">Nossa Arte</a></li>
-        </ul>
-        <div style="display: flex; align-items: center; gap: 15px;">
-            <button class="btn-nav">JOGAR SUSTENTABILIDADE</button>
-            <button class="btn-tema" id="botaoTema" onclick="mudarTema()">☾</button>
-        </div>
-    </nav>
-
-    <div class="hero">
-        <div class="icone-planta">🌱</div>
-        <h1>AgroQuest:<br>Green Frontier.</h1>
-        <p>O equilíbrio entre o campo e a floresta não é apenas possível, é o nosso próximo nível. Descubra como o Agro está hackeando a sustentabilidade.</p>
-        
-        <div class="cta-buttons">
-            <button class="btn-principal" style="background-color: #ffb300; color: white;">VER DASHBOARD REAL</button>
-            <button class="btn-principal btn-verde">COLETAR INSÍGNIA VERDE</button>
-        </div>
-    </div>
-
-    <div class="conteudo">
-        <h2>Estatísticas da Nossa Fazenda Global</h2>
-        
-        <div id="introducao" class="card-secao">
-            <h3>Introdução</h3>
-            <p>Escreva aqui o resumo ou a introdução sobre o seu projeto do Agrinho de 2026. Alinhando tecnologia e o campo!</p>
-        </div>
-
-        <div id="desenvolvimento" class="card-secao">
-            <h3>Desenvolvimento</h3>
-            <p>Aqui você pode colocar os principais dados, ideias e soluções que seu grupo desenvolveu para o projeto.</p>
-        </div>
-
-        <div id="piskel" class="card-secao" style="text-align: center;">
-            <h3>Galeria Pixel Art</h3>
-            <p>Espaço reservado para colocar a imagem que você criou no Piskel!</p>
-        </div>
-    </div>
-
-    <footer>
-        <p>Componentes: [Seu Nome e Grupo] | Escola: [Nome da Escola] | Agrinho 2026</p>
-    </footer>
-
-    <script>
-        function mudarTema() {
-            document.body.classList.toggle("modo-escuro");
-            const botao = document.getElementById("botaoTema");
-            
-            if (document.body.classList.contains("modo-escuro")) {
-                botao.innerText = "☼";
-            } else {
-                botao.innerText = "☾";
+        function ouvirTexto() {
+            const texto = document.getElementById("textoDoTrabalho").innerText;
+            if (window.speechSynthesis.speaking) {
+                window.speechSynthesis.cancel();
+                return;
             }
+            const falar = new SpeechSynthesisUtterance(texto);
+            falar.lang = "pt-BR";
+            window.speechSynthesis.speak(falar);
         }
     </script>
-
 </body>
 </html>
