@@ -7,24 +7,24 @@
 
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; background-color: #f4f9f4; color: #333; transition: 0.3s; }
-        header { background-color: #2e7d32; color: white; padding: 20px; text-align: center; border-radius: 5px; }
+        
+        /* Deixamos o header relativo para o botão se alinhar dentro dele */
+        header { position: relative; background-color: #2e7d32; color: white; padding: 20px; text-align: center; border-radius: 5px; }
+        
         section { background: white; padding: 20px; margin-top: 20px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); color: #333; }
         footer { margin-top: 30px; text-align: center; font-size: 0.9em; color: #666; }
         
-        /* Botão em formato de quadradinho fixo no canto superior direito */
+        /* Botão simplificado e posicionado dentro do quadrado verde */
         .btn-tema { 
-            position: fixed; 
+            position: absolute; 
             top: 15px; 
             right: 15px; 
-            background-color: #ffffff; 
-            color: #2e7d32; 
-            border: 2px solid #2e7d32; 
-            padding: 8px 12px; 
-            border-radius: 8px; /* Cantos levemente arredondados para o quadradinho */
+            background: none; 
+            color: white; 
+            border: none; 
             cursor: pointer; 
-            font-size: 1.3rem; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.15); /* Sombra para dar destaque */
-            z-index: 1000; 
+            font-size: 1.4rem; 
+            padding: 5px;
             transition: 0.3s;
         }
         
@@ -32,19 +32,14 @@
         body.modo-escuro { background-color: #1e1e1e; color: #f4f9f4; }
         body.modo-escuro section { background-color: #2d2d2d; color: #fff; }
         
-        /* Ajuste das cores do quadradinho no modo escuro */
-        body.modo-escuro .btn-tema { 
-            background-color: #2d2d2d; 
-            color: #ffffff; 
-            border: 2px solid #ffffff; 
-        }
+        /* No modo escuro, o botão fica escuro para contrastar se necessário, mas como está no header verde, mantemos branco ou cinza claro */
+        body.modo-escuro .btn-tema { color: #f4f9f4; }
     </style>
 </head>
 <body>
 
-    <button class="btn-tema" id="botaoTema" onclick="mudarTema()">🌙</button>
-
     <header>
+        <button class="btn-tema" id="botaoTema" onclick="mudarTema()">☾</button>
         <h1>Projeto Agrinho 2026</h1>
         <p>Tema do Trabalho: [Insira o Tema Aqui]</p>
     </header>
@@ -69,9 +64,11 @@
             const botao = document.getElementById("botaoTema");
             
             if (document.body.classList.contains("modo-escuro")) {
-                botao.innerText = "☀️";
+                // Símbolo de um sol heráldico/preto e branco
+                botao.innerText = "☼";
             } else {
-                botao.innerText = "🌙";
+                // Símbolo de lua crescente em texto
+                botao.innerText = "☾";
             }
         }
     </script>
