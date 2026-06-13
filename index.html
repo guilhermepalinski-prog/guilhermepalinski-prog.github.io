@@ -45,7 +45,7 @@
         .n1 { top: 100px; right: 10%; width: 100px; height: 35px; }
         .n2 { top: 160px; left: 15%; width: 130px; height: 40px; }
 
-        /* Menu de Navegação Superior (Adaptável) */
+        /* Menu de Navegação Superior */
         nav {
             display: flex;
             flex-direction: row;
@@ -63,7 +63,7 @@
         .menu-links a { text-decoration: none; color: #555; font-weight: 500; }
         .btn-nav { background-color: #4caf50; color: white; border: none; padding: 8px 16px; border-radius: 20px; font-weight: bold; cursor: pointer; }
 
-        /* --- PAINEL DE ACESSIBILIDADE --- */
+        /* --- PAINEL DE ACESSIBILIDADE COM ALTO CONTRASTE --- */
         .container-acessibilidade {
             position: relative;
             z-index: 100;
@@ -76,32 +76,49 @@
             color: #333;
             padding: 5px;
         }
+        
+        /* Caixa do menu com borda preta forte para gerar contraste */
         .menu-acessibilidade {
             display: none;
             position: absolute;
             top: 40px;
             right: 0;
             background-color: white;
-            border: 2px solid #2e7d32;
+            border: 3px solid #000000; /* Borda preta em destaque */
             border-radius: 8px;
-            padding: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-            width: 160px;
+            padding: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            width: 170px;
             flex-direction: column;
             gap: 10px;
         }
         .menu-acessibilidade.ativo { display: flex; }
+        
+        /* Título interno do menu */
+        .titulo-acessibilidade {
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: #000000;
+            margin: 0 0 5px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #000000;
+            padding-bottom: 5px;
+        }
+
+        /* Botões internos com bordas pretas para melhor visualização */
         .btn-opcao {
-            background-color: #f4f9f4;
-            color: #2e7d32;
-            border: 1px solid #2e7d32;
+            background-color: #ffffff;
+            color: #000000;
+            border: 2px solid #000000; /* Borda preta nos botões */
             padding: 8px;
             border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
             font-size: 0.9rem;
+            transition: 0.2s;
         }
-        .btn-opcao:hover { background-color: #2e7d32; color: white; }
+        .btn-opcao:hover { background-color: #000000; color: #ffffff; }
 
         /* Conteúdo Principal (Hero) */
         .hero { padding: 60px 20px; max-width: 800px; margin: 0 auto; position: relative; z-index: 2; }
@@ -114,36 +131,16 @@
         .card-secao h3 { color: #1b5e20; margin-top: 0; }
         footer { padding: 30px 20px; background-color: #f5f5f5; color: #777; font-size: 0.9rem; }
 
-        /* ==========================================
-           --- CONFIGURAÇÕES DE RESPONSIVIDADE ---
-           ========================================== */
-        
-        /* Para Telas Menores (Tablets e Celulares) */
+        /* Responsividade para Celulares */
         @media (max-width: 768px) {
-            nav {
-                flex-direction: column; /* Faz os itens do topo ficarem em fila vertical */
-                gap: 15px;
-                padding: 15px 20px;
-            }
-            .menu-links {
-                gap: 15px;
-                flex-wrap: wrap; /* Se faltar espaço no celular, os links quebram a linha organizados */
-                justify-content: center;
-            }
-            .hero h1 {
-                font-size: 2.2rem; /* Diminui o título para não cortar nas telas de celulares */
-            }
-            .astro {
-                width: 45px; /* Diminui o sol/lua para não atrapalhar no celular */
-                height: 45px;
-                top: 180px;
-            }
-            .n2 { display: none; } /* Esconde uma das nuvens em telas pequenas para não poluir o visual */
+            nav { flex-direction: column; gap: 15px; padding: 15px 20px; }
+            .menu-links { gap: 15px; flex-wrap: wrap; justify-content: center; }
+            .hero h1 { font-size: 2.2rem; }
+            .astro { width: 45px; height: 45px; top: 180px; }
+            .n2 { display: none; }
         }
 
-        /* ==========================================
-           --- CONFIGURAÇÕES DO MODO ESCURO ---
-           ========================================== */
+        /* --- MODO ESCURO --- */
         body.modo-escuro {
             background: linear-gradient(180deg, #0d1b2a 0%, #1b263b 40%, #000814 85%);
             color: #e0e0e0;
@@ -151,9 +148,13 @@
         body.modo-escuro nav { background-color: rgba(13, 27, 42, 0.95); }
         body.modo-escuro .menu-links a { color: #e0e0e0; }
         body.modo-escuro .btn-acessibilidade { color: #fff; }
-        body.modo-escuro .menu-acessibilidade { background-color: #1e293b; border-color: #81c784; }
-        body.modo-escuro .btn-opcao { background-color: #2d3748; color: #81c784; border-color: #81c784; }
-        body.modo-escuro .btn-opcao:hover { background-color: #81c784; color: #1e293b; }
+        
+        /* O menu mantém as bordas pretas fortes para contraste também no escuro */
+        body.modo-escuro .menu-acessibilidade { background-color: #ffffff; border-color: #000000; }
+        body.modo-escuro .titulo-acessibilidade { color: #000000; border-bottom-color: #000000; }
+        body.modo-escuro .btn-opcao { background-color: #ffffff; color: #000000; border-color: #000000; }
+        body.modo-escuro .btn-opcao:hover { background-color: #000000; color: #ffffff; }
+        
         body.modo-escuro .hero h1 { color: #81c784; }
         body.modo-escuro .hero p { color: #b0bec5; }
         body.modo-escuro .conteudo { background-color: #1b4d3e; }
@@ -183,6 +184,7 @@
             <div class="container-acessibilidade">
                 <button class="btn-acessibilidade" onclick="toggleMenu()">⚙️</button>
                 <div class="menu-acessibilidade" id="menuAcessivel">
+                    <div class="titulo-acessibilidade">Acessibilidade</div>
                     <button class="btn-opcao" id="btnTema" onclick="mudarTema()">Tema: ☾</button>
                     <button class="btn-opcao" onclick="mudarFonte(2)">Letra A+</button>
                     <button class="btn-opcao" onclick="mudarFonte(-2)">Letra A-</button>
