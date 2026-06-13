@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projeto Agrinho 2026</title>
+    <title>Projeto Agrinho 2026 - Individual</title>
     <style>
-        /* Configurações Gerais - Fundo Dinâmico (Dia) */
+        /* Fundo Dinâmico (Dia) */
         body { 
-            font-family: 'Segoe UI', sans-serif; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             margin: 0; 
             padding: 0; 
             box-sizing: border-box;
@@ -56,25 +56,12 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             position: relative;
             z-index: 10;
-            transition: 0.5s;
         }
-        .logo { font-weight: bold; font-size: 1.4rem; color: #2e7d32; }
-        .menu-links { display: flex; gap: 20px; list-style: none; margin: 0; padding: 0; }
-        .menu-links a { text-decoration: none; color: #555; font-weight: 500; }
+        .logo { font-weight: bold; font-size: 1.4rem; color: #2e7d32; display: flex; align-items: center; gap: 8px; }
 
-        /* --- PAINEL DE ACESSIBILIDADE COM ALTO CONTRASTE --- */
-        .container-acessibilidade {
-            position: relative;
-            z-index: 100;
-        }
-        .btn-acessibilidade {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 1.5rem;
-            color: #333;
-            padding: 5px;
-        }
+        /* --- MENU DE ACESSIBILIDADE DE ALTO CONTRASTE --- */
+        .container-acessibilidade { position: relative; z-index: 100; }
+        .btn-acessibilidade { background: none; border: none; cursor: pointer; font-size: 1.5rem; color: #333; padding: 5px; }
         .menu-acessibilidade {
             display: none;
             position: absolute;
@@ -85,91 +72,54 @@
             border-radius: 8px;
             padding: 12px;
             box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-            width: 170px;
+            width: 180px;
             flex-direction: column;
             gap: 10px;
         }
         .menu-acessibilidade.ativo { display: flex; }
-        
-        .titulo-acessibilidade {
-            font-size: 0.95rem;
-            font-weight: bold;
-            color: #000000;
-            margin: 0 0 5px 0;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border-bottom: 2px solid #000000;
-            padding-bottom: 5px;
-        }
+        .titulo-acessibilidade { font-size: 0.9rem; font-weight: bold; color: #000; border-bottom: 2px solid #000; padding-bottom: 5px; text-transform: uppercase; }
+        .btn-opcao { background-color: #fff; color: #000; border: 2px solid #000; padding: 8px; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        .btn-opcao:hover { background-color: #000; color: #fff; }
 
-        .btn-opcao {
-            background-color: #ffffff;
-            color: #000000;
-            border: 2px solid #000000;
-            padding: 8px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 0.9rem;
-            transition: 0.2s;
-        }
-        .btn-opcao:hover { background-color: #000000; color: #ffffff; }
-
-        /* --- TÍTULOS E SUBTÍTULOS SOLICITADOS --- */
+        /* --- TEXTOS DO TEMA --- */
         .hero { padding: 60px 20px; max-width: 900px; margin: 0 auto; position: relative; z-index: 2; }
-        
-        /* 1. Título adaptado */
-        .hero h1 { color: #1b5e20; font-size: 3.5rem; margin: 0 0 10px 0; line-height: 1.2; }
-        
-        /* 2. Subtítulo menor logo abaixo */
-        .hero .subtitulo-tema { font-size: 1.6rem; color: #5d4037; margin: 0 0 25px 0; font-weight: 600; }
-        
-        /* Divisória elegante */
-        .linha-decorativa { width: 80px; border: 2px solid #ffa000; margin: 20px auto; border-radius: 2px; }
-        
-        /* 3. Frase relacionada ao tema */
-        .hero .frase-impacto { font-size: 1.15rem; color: #555; font-style: italic; max-width: 700px; margin: 0 auto; line-height: 1.6; }
-        
-        /* Seções de Conteúdo do Trabalho */
-        .conteudo { background-color: #4caf50; color: white; padding: 40px 20px; position: relative; z-index: 2; transition: 0.5s; }
-        .card-secao { background: white; color: #333; max-width: 700px; margin: 0 auto 20px auto; padding: 25px; border-radius: 8px; text-align: left; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .card-secao h3 { color: #1b5e20; margin-top: 0; }
-        footer { padding: 30px 20px; background-color: #f5f5f5; color: #777; font-size: 0.9rem; }
+        .hero h1 { color: #1b5e20; font-size: 3.5rem; margin: 0; line-height: 1.1; }
+        .hero .subtitulo { font-size: 1.6rem; color: #5d4037; margin: 10px 0 20px 0; font-weight: 600; }
+        .linha-decorativa { width: 60px; height: 4px; background-color: #ffa000; margin: 0 auto 20px auto; border-radius: 2px; }
+        .frase-impacto { font-size: 1.2rem; font-style: italic; color: #555; max-width: 700px; margin: 0 auto; line-height: 1.6; }
 
-        /* Responsividade para Celulares e Tablets */
+        /* Conteúdo do Trabalho */
+        .conteudo { background-color: #2e7d32; color: white; padding: 50px 20px; position: relative; z-index: 2; transition: 0.5s; }
+        .card-secao { background: white; color: #333; max-width: 800px; margin: 0 auto 30px auto; padding: 35px; border-radius: 12px; text-align: left; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .card-secao h3 { color: #1b5e20; margin-top: 0; font-size: 1.8rem; border-left: 5px solid #ffa000; padding-left: 15px; }
+        .card-secao p { line-height: 1.7; margin-bottom: 15px; }
+        .card-secao ul { padding-left: 0; list-style: none; }
+        .card-secao li { margin-bottom: 20px; padding: 15px; background: #f9f9f9; border-radius: 8px; }
+
+        footer { padding: 40px 20px; background-color: #f1f1f1; color: #666; font-size: 0.9rem; }
+
+        /* Responsividade */
         @media (max-width: 768px) {
-            nav { flex-direction: column; gap: 15px; padding: 15px 20px; }
-            .menu-links { gap: 15px; flex-wrap: wrap; justify-content: center; }
-            .hero h1 { font-size: 2.3rem; }
-            .hero .subtitulo-tema { font-size: 1.2rem; }
-            .hero .frase-impacto { font-size: 1rem; }
-            .astro { width: 45px; height: 45px; top: 230px; }
+            .hero h1 { font-size: 2.2rem; }
+            .hero .subtitulo { font-size: 1.2rem; }
+            .astro { top: 250px; width: 45px; height: 45px; }
+            nav { flex-direction: column; gap: 10px; }
             .n2 { display: none; }
         }
 
-        /* --- MODIFICAÇÕES DO MODO ESCURO (NOITE) --- */
-        body.modo-escuro {
-            background: linear-gradient(180deg, #0d1b2a 0%, #1b263b 40%, #000814 85%);
-            color: #e0e0e0;
-        }
+        /* --- MODO ESCURO (NOITE) --- */
+        body.modo-escuro { background: linear-gradient(180deg, #0d1b2a 0%, #1b263b 40%, #000814 85%); color: #e0e0e0; }
         body.modo-escuro nav { background-color: rgba(13, 27, 42, 0.95); }
-        body.modo-escuro .menu-links a { color: #e0e0e0; }
         body.modo-escuro .btn-acessibilidade { color: #fff; }
-        
-        body.modo-escuro .menu-acessibilidade { background-color: #ffffff; border-color: #000000; }
-        body.modo-escuro .titulo-acessibilidade { color: #000000; border-bottom-color: #000000; }
-        body.modo-escuro .btn-opcao { background-color: #ffffff; color: #000000; border-color: #000000; }
-        body.modo-escuro .btn-opcao:hover { background-color: #000000; color: #ffffff; }
-        
         body.modo-escuro .hero h1 { color: #81c784; }
-        body.modo-escuro .hero .subtitulo-tema { color: #b0bec5; }
-        body.modo-escuro .hero .frase-impacto { color: #cfd8dc; }
-        body.modo-escuro .conteudo { background-color: #1b4d3e; }
+        body.modo-escuro .hero .subtitulo { color: #b0bec5; }
+        body.modo-escuro .frase-impacto { color: #cfd8dc; }
+        body.modo-escuro .conteudo { background-color: #1a3a2a; }
         body.modo-escuro .card-secao { background-color: #1e293b; color: #f8fafc; }
         body.modo-escuro .card-secao h3 { color: #81c784; }
-        body.modo-escuro footer { background-color: #0b0f19; }
+        body.modo-escuro .card-secao li { background: #2d3748; color: #e2e8f0; }
         body.modo-escuro .astro { background-color: #d1d5db; box-shadow: 0 0 20px #ffffff80; left: 85%; }
-        body.modo-escuro .nuvem { background-color: rgba(255, 255, 255, 0.15); }
+        body.modo-escuro .nuvem { background-color: rgba(255, 255, 255, 0.1); }
     </style>
 </head>
 <body>
@@ -180,14 +130,8 @@
 
     <nav>
         <div class="logo">🌱 Agrinho 2026</div>
-        <ul class="menu-links">
-            <li><a href="#introducao">Introdução</a></li>
-            <li><a href="#desenvolvimento">Desenvolvimento</a></li>
-            <li><a href="#piskel">Nossa Arte</a></li>
-        </ul>
-        
         <div class="container-acessibilidade">
-            <button class="btn-acessibilidade" onclick="toggleMenu()">⚙️</button>
+            <button class="btn-acessibilidade" onclick="toggleMenu()" title="Menu de Acessibilidade">⚙️</button>
             <div class="menu-acessibilidade" id="menuAcessivel">
                 <div class="titulo-acessibilidade">Acessibilidade</div>
                 <button class="btn-opcao" id="btnTema" onclick="mudarTema()">Tema: ☾</button>
@@ -200,63 +144,63 @@
 
     <div class="hero">
         <h1>Agro forte, futuro sustentável</h1>
-        <div class="subtitulo-tema">Equilíbrio entre produção e meio ambiente</div>
+        <div class="subtitulo">Equilíbrio entre produção e meio ambiente</div>
         <div class="linha-decorativa"></div>
         <p class="frase-impacto">"O verdadeiro progresso no campo acontece quando a tecnologia aumenta a colheita enquanto protege a terra e a floresta que nos sustentam."</p>
     </div>
 
-    <div class="conteudo" id="textoDoTrabalho">
+    <div class="conteudo" id="trabalhoTotal">
         <div id="introducao" class="card-secao">
-            <h3>Introdução</h3>
-            <p>Escreva aqui o resumo ou a introdução sobre o seu projeto do Agrinho de 2026. Alinhando tecnologia, produção e o respeito à natureza!</p>
+            <h3>O Grande Desafio do Século</h3>
+            <p>Até o ano de 2050, o planeta Terra terá quase 10 bilhões de habitantes. Como estudante, pesquisei que o campo precisará produzir muito mais alimento do que produz hoje. Mas como aumentar a produção sem avançar sobre as florestas?</p>
+            <p>Este projeto busca provar que não precisamos escolher entre uma agricultura forte ou a proteção do meio ambiente. O segredo está no <strong>equilíbrio tecnológico</strong>, unindo a ciência com o respeito à natureza.</p>
         </div>
+
         <div id="desenvolvimento" class="card-secao">
-            <h3>Desenvolvimento</h3>
-            <p>Aqui você pode colocar os principais dados, ideias e soluções que seu grupo desenvolveu para o projeto.</p>
+            <h3>A Revolução Verde na Prática</h3>
+            <p>Analisei três pilares fundamentais que os agricultores estão utilizando para garantir um futuro sustentável:</p>
+            <ul>
+                <li><strong>🚜 1. Plantio Direto:</strong> Em vez de revirar a terra, as sementes são plantadas sobre a palha da colheita anterior. Isso funciona como um cobertor térmico que segura a umidade e protege o solo da erosão.</li>
+                <li><strong>🛸 2. Tecnologia de Precisão:</strong> O uso de drones e sensores permite que o produtor aplique recursos apenas onde a planta realmente precisa, evitando desperdícios e protegendo os rios.</li>
+                <li><strong>🌳 3. Matas Ciliares:</strong> Preservar as árvores em volta das nascentes é vital. Elas filtram a água e garantem a sobrevivência da fauna local, funcionando como guardiãs do ecossistema.</li>
+            </ul>
         </div>
-        <div id="piskel" class="card-secao">
-            <h3>Galeria Pixel Art</h3>
-            <p>[Sua imagem do Piskel entrará aqui]</p>
+
+        <div id="piskel" class="card-secao" style="text-align:center;">
+            <h3>Minha Visão em Pixel Art</h3>
+            <p>Para materializar visualmente este conceito, criei uma Pixel Art no Piskel que resume o equilíbrio entre a tecnologia agrícola e a biodiversidade preservada.</p>
+            <div style="background:#eee; padding:40px; border-radius:8px; border:2px dashed #ccc; color:#777;">
+                [Arraste aqui o arquivo .png ou .gif que você baixou do Piskel]
+            </div>
         </div>
     </div>
 
     <footer>
-        <p>Componentes: [Seu Nome e Grupo] | Escola: [Nome da Escola] | Concurso Agrinho 2026</p>
+        <p><strong>Desenvolvido por:</strong> [Seu Nome Completo]</p>
+        <p>Concurso Agrinho 2026 — Projeto Individual</p>
     </footer>
 
     <script>
-        function toggleMenu() {
-            const menu = document.getElementById("menuAcessivel");
-            menu.classList.toggle("ativo");
-        }
+        function toggleMenu() { document.getElementById("menuAcessivel").classList.toggle("ativo"); }
 
         function mudarTema() {
             document.body.classList.toggle("modo-escuro");
             const btn = document.getElementById("btnTema");
-            if (document.body.classList.contains("modo-escuro")) {
-                btn.innerText = "Tema: ☼";
-            } else {
-                btn.innerText = "Tema: ☾";
-            }
+            btn.innerText = document.body.classList.contains("modo-escuro") ? "Tema: ☼" : "Tema: ☾";
         }
 
-        let tamanhoAtual = 16; 
-        function mudarFonte(valor) {
-            tamanhoAtual += valor;
-            if(tamanhoAtual < 12) tamanhoAtual = 12;
-            if(tamanhoAtual > 24) tamanhoAtual = 24;
-            document.body.style.fontSize = tamanhoAtual + "px";
+        let tam = 16;
+        function mudarFonte(v) {
+            tam += v;
+            if(tam >= 12 && tam <= 24) document.body.style.fontSize = tam + "px";
         }
 
         function ouvirTexto() {
-            const texto = document.getElementById("textoDoTrabalho").innerText;
-            if (window.speechSynthesis.speaking) {
-                window.speechSynthesis.cancel();
-                return;
-            }
-            const falar = new SpeechSynthesisUtterance(texto);
-            falar.lang = "pt-BR";
-            window.speechSynthesis.speak(falar);
+            if (window.speechSynthesis.speaking) { window.speechSynthesis.cancel(); return; }
+            const texto = document.getElementById("trabalhoTotal").innerText;
+            const fala = new SpeechSynthesisUtterance(texto);
+            fala.lang = "pt-BR";
+            window.speechSynthesis.speak(fala);
         }
     </script>
 </body>
