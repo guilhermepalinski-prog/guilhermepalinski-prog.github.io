@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AgroQuest: Green Frontier - Agrinho 2026</title>
+    <title>Projeto Agrinho 2026</title>
     <style>
         /* Configurações Gerais - Fundo Dinâmico (Dia) */
         body { 
@@ -61,7 +61,6 @@
         .logo { font-weight: bold; font-size: 1.4rem; color: #2e7d32; }
         .menu-links { display: flex; gap: 20px; list-style: none; margin: 0; padding: 0; }
         .menu-links a { text-decoration: none; color: #555; font-weight: 500; }
-        .btn-nav { background-color: #4caf50; color: white; border: none; padding: 8px 16px; border-radius: 20px; font-weight: bold; cursor: pointer; }
 
         /* --- PAINEL DE ACESSIBILIDADE COM ALTO CONTRASTE --- */
         .container-acessibilidade {
@@ -76,15 +75,13 @@
             color: #333;
             padding: 5px;
         }
-        
-        /* Caixa do menu com borda preta forte para gerar contraste */
         .menu-acessibilidade {
             display: none;
             position: absolute;
             top: 40px;
             right: 0;
             background-color: white;
-            border: 3px solid #000000; /* Borda preta em destaque */
+            border: 3px solid #000000;
             border-radius: 8px;
             padding: 12px;
             box-shadow: 0 6px 20px rgba(0,0,0,0.3);
@@ -94,7 +91,6 @@
         }
         .menu-acessibilidade.ativo { display: flex; }
         
-        /* Título interno do menu */
         .titulo-acessibilidade {
             font-size: 0.95rem;
             font-weight: bold;
@@ -106,11 +102,10 @@
             padding-bottom: 5px;
         }
 
-        /* Botões internos com bordas pretas para melhor visualização */
         .btn-opcao {
             background-color: #ffffff;
             color: #000000;
-            border: 2px solid #000000; /* Borda preta nos botões */
+            border: 2px solid #000000;
             padding: 8px;
             border-radius: 5px;
             cursor: pointer;
@@ -120,27 +115,39 @@
         }
         .btn-opcao:hover { background-color: #000000; color: #ffffff; }
 
-        /* Conteúdo Principal (Hero) */
-        .hero { padding: 60px 20px; max-width: 800px; margin: 0 auto; position: relative; z-index: 2; }
-        .hero h1 { color: #1b5e20; font-size: 3rem; margin-bottom: 15px; line-height: 1.2; }
-        .hero p { font-size: 1.1rem; color: #555; margin-bottom: 30px; }
+        /* --- TÍTULOS E SUBTÍTULOS SOLICITADOS --- */
+        .hero { padding: 60px 20px; max-width: 900px; margin: 0 auto; position: relative; z-index: 2; }
         
-        /* Seções de Conteúdo */
+        /* 1. Título adaptado */
+        .hero h1 { color: #1b5e20; font-size: 3.5rem; margin: 0 0 10px 0; line-height: 1.2; }
+        
+        /* 2. Subtítulo menor logo abaixo */
+        .hero .subtitulo-tema { font-size: 1.6rem; color: #5d4037; margin: 0 0 25px 0; font-weight: 600; }
+        
+        /* Divisória elegante */
+        .linha-decorativa { width: 80px; border: 2px solid #ffa000; margin: 20px auto; border-radius: 2px; }
+        
+        /* 3. Frase relacionada ao tema */
+        .hero .frase-impacto { font-size: 1.15rem; color: #555; font-style: italic; max-width: 700px; margin: 0 auto; line-height: 1.6; }
+        
+        /* Seções de Conteúdo do Trabalho */
         .conteudo { background-color: #4caf50; color: white; padding: 40px 20px; position: relative; z-index: 2; transition: 0.5s; }
         .card-secao { background: white; color: #333; max-width: 700px; margin: 0 auto 20px auto; padding: 25px; border-radius: 8px; text-align: left; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .card-secao h3 { color: #1b5e20; margin-top: 0; }
         footer { padding: 30px 20px; background-color: #f5f5f5; color: #777; font-size: 0.9rem; }
 
-        /* Responsividade para Celulares */
+        /* Responsividade para Celulares e Tablets */
         @media (max-width: 768px) {
             nav { flex-direction: column; gap: 15px; padding: 15px 20px; }
             .menu-links { gap: 15px; flex-wrap: wrap; justify-content: center; }
-            .hero h1 { font-size: 2.2rem; }
-            .astro { width: 45px; height: 45px; top: 180px; }
+            .hero h1 { font-size: 2.3rem; }
+            .hero .subtitulo-tema { font-size: 1.2rem; }
+            .hero .frase-impacto { font-size: 1rem; }
+            .astro { width: 45px; height: 45px; top: 230px; }
             .n2 { display: none; }
         }
 
-        /* --- MODO ESCURO --- */
+        /* --- MODIFICAÇÕES DO MODO ESCURO (NOITE) --- */
         body.modo-escuro {
             background: linear-gradient(180deg, #0d1b2a 0%, #1b263b 40%, #000814 85%);
             color: #e0e0e0;
@@ -149,14 +156,14 @@
         body.modo-escuro .menu-links a { color: #e0e0e0; }
         body.modo-escuro .btn-acessibilidade { color: #fff; }
         
-        /* O menu mantém as bordas pretas fortes para contraste também no escuro */
         body.modo-escuro .menu-acessibilidade { background-color: #ffffff; border-color: #000000; }
         body.modo-escuro .titulo-acessibilidade { color: #000000; border-bottom-color: #000000; }
         body.modo-escuro .btn-opcao { background-color: #ffffff; color: #000000; border-color: #000000; }
         body.modo-escuro .btn-opcao:hover { background-color: #000000; color: #ffffff; }
         
         body.modo-escuro .hero h1 { color: #81c784; }
-        body.modo-escuro .hero p { color: #b0bec5; }
+        body.modo-escuro .hero .subtitulo-tema { color: #b0bec5; }
+        body.modo-escuro .hero .frase-impacto { color: #cfd8dc; }
         body.modo-escuro .conteudo { background-color: #1b4d3e; }
         body.modo-escuro .card-secao { background-color: #1e293b; color: #f8fafc; }
         body.modo-escuro .card-secao h3 { color: #81c784; }
@@ -172,37 +179,36 @@
     <div class="nuvem n2"></div>
 
     <nav>
-        <div class="logo">🚜 AgroQuest</div>
+        <div class="logo">🌱 Agrinho 2026</div>
         <ul class="menu-links">
             <li><a href="#introducao">Introdução</a></li>
             <li><a href="#desenvolvimento">Desenvolvimento</a></li>
             <li><a href="#piskel">Nossa Arte</a></li>
         </ul>
         
-        <div style="display: flex; align-items: center; gap: 15px;">
-            <button class="btn-nav">JOGAR</button>
-            <div class="container-acessibilidade">
-                <button class="btn-acessibilidade" onclick="toggleMenu()">⚙️</button>
-                <div class="menu-acessibilidade" id="menuAcessivel">
-                    <div class="titulo-acessibilidade">Acessibilidade</div>
-                    <button class="btn-opcao" id="btnTema" onclick="mudarTema()">Tema: ☾</button>
-                    <button class="btn-opcao" onclick="mudarFonte(2)">Letra A+</button>
-                    <button class="btn-opcao" onclick="mudarFonte(-2)">Letra A-</button>
-                    <button class="btn-opcao" onclick="ouvirTexto()">Ouvir Texto 🔊</button>
-                </div>
+        <div class="container-acessibilidade">
+            <button class="btn-acessibilidade" onclick="toggleMenu()">⚙️</button>
+            <div class="menu-acessibilidade" id="menuAcessivel">
+                <div class="titulo-acessibilidade">Acessibilidade</div>
+                <button class="btn-opcao" id="btnTema" onclick="mudarTema()">Tema: ☾</button>
+                <button class="btn-opcao" onclick="mudarFonte(2)">Letra A+</button>
+                <button class="btn-opcao" onclick="mudarFonte(-2)">Letra A-</button>
+                <button class="btn-opcao" onclick="ouvirTexto()">Ouvir Texto 🔊</button>
             </div>
         </div>
     </nav>
 
     <div class="hero">
-        <h1>AgroQuest:<br>Green Frontier.</h1>
-        <p>O equilíbrio entre o campo e a floresta não é apenas possível, é o nosso próximo nível.</p>
+        <h1>Agro forte, futuro sustentável</h1>
+        <div class="subtitulo-tema">Equilíbrio entre produção e meio ambiente</div>
+        <div class="linha-decorativa"></div>
+        <p class="frase-impacto">"O verdadeiro progresso no campo acontece quando a tecnologia aumenta a colheita enquanto protege a terra e a floresta que nos sustentam."</p>
     </div>
 
     <div class="conteudo" id="textoDoTrabalho">
         <div id="introducao" class="card-secao">
             <h3>Introdução</h3>
-            <p>Escreva aqui o resumo ou a introdução sobre o seu projeto do Agrinho de 2026. Alinhando tecnologia e o campo!</p>
+            <p>Escreva aqui o resumo ou a introdução sobre o seu projeto do Agrinho de 2026. Alinhando tecnologia, produção e o respeito à natureza!</p>
         </div>
         <div id="desenvolvimento" class="card-secao">
             <h3>Desenvolvimento</h3>
@@ -210,12 +216,12 @@
         </div>
         <div id="piskel" class="card-secao">
             <h3>Galeria Pixel Art</h3>
-            <p>[Sua imagem aqui]</p>
+            <p>[Sua imagem do Piskel entrará aqui]</p>
         </div>
     </div>
 
     <footer>
-        <p>Componentes: [Seu Nome] | Agrinho 2026</p>
+        <p>Componentes: [Seu Nome e Grupo] | Escola: [Nome da Escola] | Concurso Agrinho 2026</p>
     </footer>
 
     <script>
