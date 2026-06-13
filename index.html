@@ -26,33 +26,6 @@
             font-size: 18px;
         }
 
-        /* Camada transparente para o efeito esverdeado intenso do Easter Egg */
-        #filtroVerde {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background-color: rgba(46, 125, 50, 0); pointer-events: none;
-            z-index: 9999; transition: background-color 1.2s ease;
-        }
-
-        /* Animação completa para a chuva de folhas (queda + balanço lateral) */
-        @keyframes chuvaDeFolhas {
-            0% {
-                top: -50px;
-                transform: translateX(0) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            50% {
-                transform: translateX(40px) rotate(180deg);
-            }
-            100% {
-                top: 110vh;
-                transform: translateX(-40px) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
         /* 2. ELEMENTOS DO CÉU (Astro e nuvens que se movem ou mudam no modo escuro) */
         .astro {
             position: absolute; top: 80px; left: 5%; width: 65px; height: 65px;
@@ -110,7 +83,7 @@
         }
         .btn-opcao:hover { background-color: #000; color: #fff; }
 
-        /* 5. TÍTULO PRINCIPAL (Abertura do site) */
+        /* 5. TITULO PRINCIPAL (Abertura do site) */
         .hero { padding: 80px 20px; max-width: 1000px; margin: 0 auto; position: relative; z-index: 2; }
         .hero h1 { 
             font-family: 'Poppins', sans-serif; color: #1b5e20; font-size: 4rem; 
@@ -191,11 +164,69 @@
         body.modo-escuro .astro { background-color: #e2e8f0; box-shadow: 0 0 40px #ffffff; left: 85%; top: 60px; }
         body.modo-escuro .nuvem { background-color: rgba(255, 255, 255, 0.08); }
         body.modo-escuro footer { background-color: #0b0f19; color: #475569; border-color: #1e293b; }
+
+        /* === 10. ESTILOS DO EASTER EGG (O Cubo de Folhas caindo) === */
+        
+        /* Camada transparente que escurece a tela e recebe o tom verde intenso */
+        #filtroVerde {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: rgba(46, 125, 50, 0); /* Começa transparente */
+            transition: background-color 1.5s ease; /* Transição suave para o verde */
+            z-index: 10000; /* Garante que fica NA FRENTE de todos os cards de texto */
+            display: none; /* Começa escondido */
+            pointer-events: none; /* Não atrapalha o clique enquanto escondido */
+        }
+
+        /* O "Cubo Enorme" de folhas que cobre a tela inteira */
+        #cuboDeFolhas {
+            position: fixed;
+            top: -150vh; /* Começa bem acima do topo da página */
+            left: 0;
+            width: 100vw;
+            height: 150vh; /* Muito mais alto que a tela para uma chuva densa */
+            z-index: 10001; /* Fica na frente do filtro verde */
+            display: none; /* Começa escondido */
+            pointer-events: none; /* As folhas não recebem clique */
+        }
+
+        /* Animação que faz o cubo inteiro cair */
+        @keyframes cuboCaindo {
+            0% { top: -150vh; opacity: 0; }
+            10% { opacity: 1; }
+            100% { top: 100vh; opacity: 0; }
+        }
+
+        /* Estilo básico de cada folha dentro do cubo */
+        .folha-virtual {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Balão de mensagem que aparece no centro */
+        #feedbackEasterEgg {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(27, 94, 32, 0.95);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 50px;
+            font-weight: bold;
+            z-index: 10002; /* Fica na frente das folhas */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            max-width: 90%;
+            display: none; /* Começa escondido */
+            transition: opacity 0.5s ease;
+        }
     </style>
 </head>
 <body>
 
     <div id="filtroVerde"></div>
+    <div id="cuboDeFolhas"></div>
+    <div id="feedbackEasterEgg">Semear conhecimento hoje para colher um amanhã sustentável! 🌾</div>
 
     <div class="astro" id="corpoCeleste"></div>
     <div class="nuvem n1"></div>
@@ -228,158 +259,4 @@
         <section class="card-secao" id="introducao">
             <h3>O Desafio da Nossa Geração</h3>
             <div class="img-container">
-                <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1000&q=80" alt="Paisagem de fazenda sustentável ao pôr do sol">
-            </div>
-            <p>Sempre me perguntei como vamos alimentar 10 bilhões de pessoas até 2050 sem destruir as nossas florestas. Durante as minhas pesquisas para este projeto, percebi que a resposta não é "parar de produzir", mas sim produzir com <strong>inteligência e equilíbrio</strong>.</p>
-            <p>Eu descobri que o Paraná é uma referência mundial nesse tema. Aqui, nós estamos a provar que o agro forte e o meio ambiente preservado não são inimigos, mas sim parceiros inseparáveis para um futuro viável.</p>
-        </section>
-
-        <section class="card-secao" id="desenvolvimento">
-            <h3>Tecnologia a Serviço da Terra</h3>
-            <div class="img-container">
-                <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=1000&q=80" alt="Uso de tecnologia moderna e monitoramento agrícola">
-            </div>
-            <p>Aprofundando o meu estudo, encontrei três ações práticas que mostram como esse equilíbrio acontece de verdade no dia a dia do produtor rural:</p>
-            
-            <ul class="lista-acoes">
-                <li>
-                    <strong>🚜 Plantio Direto: O Cobertor do Solo</strong>
-                    Eu aprendi que não precisamos revirar a terra. Ao plantar sobre os restos da colheita anterior, criamos uma proteção natural que segura a umidade, evita a erosão e mantém o solo rico em nutrientes sem o uso excessivo de produtos químicos.
-                </li>
-                <li>
-                    <strong>🛸 Agricultura de Precisão: Decisões Inteligentes</strong>
-                    Fiquei impressionado ao ver como os drones e os sensores trabalham. O produtor hoje consegue aplicar recursos exatamente onde a planta precisa, evitando desperdícios e garantindo que o lençol freático e os rios fiquem protegidos da poluição.
-                </li>
-                <li>
-                    <strong>🌳 Matas Ciliares: As Guardiãs das Águas</strong>
-                    Manter as árvores nas margens dos rios é um compromisso ético. Estas matas funcionam como cílios, filtrando a água da chuva e criando corredores seguros para que os animais da nossa fauna possam circular livremente.
-                </li>
-            </ul>
-        </section>
-
-        <section class="card-secao" id="conclusao">
-            <h3>Minha Visão para o Amanhã</h3>
-            <div class="img-container">
-                <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1000&q=80" alt="Rio limpo protegido pela mata ciliar nativa">
-            </div>
-            <p>Este projeto ensinou-me que ser "sustentável" não é um conceito teórico dos livros; é uma prática de cuidado diário com a terra. O "agro forte" que eu defendo é aquele que entende que a natureza é a sua maior aliada.</p>
-            
-            <div class="conclusao-destaque">
-                <p>🌱 <strong>Reflexão Final:</strong> Vejo que o papel do programa Agrinho é semear essa consciência. O equilíbrio entre produção e preservação não é apenas uma meta técnica, é o único caminho para que o nosso estado continue a ser um lugar próspero para as próximas gerações.</p>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p><strong>Desenvolvido por:</strong> Guilherme Schein Palinski</p>
-        <p>Projeto para o Concurso Agrinho 2026 — Rumo ao Futuro Sustentável</p>
-    </footer>
-
-    <script>
-        // Faz a caixinha de acessibilidade aparecer e sumir quando clica na engrenagem
-        function toggleMenu() {
-            const menu = document.getElementById("menuAcessivel");
-            menu.classList.toggle("ativo");
-        }
-
-        // Troca as cores da página inteira e muda o Sol pela Lua
-        function mudarTema() {
-            document.body.classList.toggle("modo-escuro");
-            const btn = document.getElementById("btnTema");
-            if (document.body.classList.contains("modo-escuro")) {
-                btn.innerText = "Tema: Dia ☼";
-            } else {
-                btn.innerText = "Tema: Noite ☾";
-            }
-        }
-
-        // Aumenta ou diminui a letra do site para ajudar quem tem dificuldade visual
-        let tamanhoFonte = 18;
-        function mudarFonte(delta) {
-            tamanhoFonte += delta;
-            if (tamanhoFonte >= 14 && tamanhoFonte <= 26) {
-                document.body.style.fontSize = tamanhoFonte + "px";
-            }
-        }
-
-        // Função genial que lê os textos do site em voz alta para dar acessibilidade
-        function ouvirTexto() {
-            if (window.speechSynthesis.speaking) {
-                window.speechSynthesis.cancel();
-                return;
-            }
-            const conteudo = document.getElementById("trabalhoTotal").innerText;
-            const fala = new SpeechSynthesisUtterance(conteudo);
-            fala.lang = "pt-BR";
-            window.speechSynthesis.speak(fala);
-        }
-
-        // O SEGREDO DO SITE CORRIGIDO: Faz chover folhinhas virtuais em camadas 3D usando CSS nativo
-        function semearFuturo() {
-            const filtro = document.getElementById("filtroVerde");
-            
-            // Ativa o tom verde bem mais nítido e intenso na tela inteira
-            filtro.style.backgroundColor = "rgba(34, 139, 34, 0.45)";
-
-            // Criando 60 folhas distribuídas em 3 camadas de profundidade reais
-            for (let i = 0; i < 60; i++) {
-                const folha = document.createElement('div');
-                folha.innerText = '🍃';
-                folha.style.position = 'fixed';
-                folha.style.left = Math.random() * 100 + 'vw';
-                folha.style.pointerEvents = 'none';
-                
-                // Distribui um pequeno atraso (delay) para elas irem caindo aos poucos ao longo dos 5s
-                const delay = Math.random() * 2;
-                
-                // Sorteando a camada de profundidade (Perto, Médio ou Longe)
-                const camadaAleatoria = Math.floor(Math.random() * 3);
-                
-                if (camadaAleatoria === 0) {
-                    // Camada 1: Próximas da tela (Maiores e mais rápidas)
-                    folha.style.fontSize = (Math.random() * 10 + 32) + 'px';
-                    folha.style.animation = `chuvaDeFolhas 3.2s linear ${delay}s infinite`;
-                    folha.style.zIndex = '10005'; 
-                } else if (camadaAleatoria === 1) {
-                    // Camada 2: Médias (Velocidade padrão)
-                    folha.style.fontSize = (Math.random() * 8 + 22) + 'px';
-                    folha.style.animation = `chuvaDeFolhas 4.2s linear ${delay}s infinite`;
-                    folha.style.zIndex = '10000';
-                } else {
-                    // Camada 3: Ao fundo (Pequenas, lentas e levemente borradas)
-                    folha.style.fontSize = (Math.random() * 6 + 12) + 'px';
-                    folha.style.animation = `chuvaDeFolhas 5.2s linear ${delay}s infinite`;
-                    folha.style.filter = 'blur(1px)';
-                    folha.style.zIndex = '9998'; 
-                }
-
-                document.body.appendChild(folha);
-                
-                // Remove as folhas após os 5 segundos de animação
-                setTimeout(() => folha.remove(), 5000);
-            }
-            
-            // Faz aparecer o balãozinho com a frase exata no centro da tela
-            const feedback = document.createElement('div');
-            feedback.innerText = "Semear conhecimento hoje para colher um amanhã sustentável! 🌾";
-            feedback.style.position = 'fixed';
-            feedback.style.top = '50%';
-            feedback.style.left = '50%';
-            feedback.style.transform = 'translate(-50%, -50%)';
-            feedback.style.backgroundColor = 'rgba(27, 94, 32, 0.95)';
-            feedback.style.color = 'white';
-            feedback.style.padding = '20px 40px';
-            feedback.style.borderRadius = '50px';
-            feedback.style.fontWeight = 'bold';
-            feedback.style.zIndex = '10006'; // Fica por cima de todas as folhas
-            feedback.style.boxShadow = '0 10px 30px rgba(0,0,0,0.4)';
-            feedback.style.maxWidth = '90%';
-            document.body.appendChild(feedback);
-            
-            // Finaliza o evento limpando o feedback e resetando o fundo após os 5 segundos exatos
-            setTimeout(() => {
-                feedback.remove();
-                filtro.style.backgroundColor = "rgba(46, 125, 50, 0)";
-            }, 5000);
-        }
-  
+                <img src="https
