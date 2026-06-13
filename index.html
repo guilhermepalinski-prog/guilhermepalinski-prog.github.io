@@ -160,29 +160,29 @@
         body.modo-escuro .nuvem { background-color: rgba(255, 255, 255, 0.08); }
         body.modo-escuro footer { background-color: #0b0f19; color: #475569; border-color: #1e293b; }
 
-        /* === 10. ESTILOS DO NOVO EASTER EGG (O Cubo Gigante de Folhas) === */
+        /* === 10. ESTILOS DO EASTER EGG (O Cubo Gigante Desacelerado) === */
         #filtroVerde {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background-color: rgba(34, 139, 34, 0);
             transition: background-color 1s ease;
-            z-index: 99999; /* Fica na frente de absolutamente tudo */
+            z-index: 99999; 
             pointer-events: none;
         }
 
         #cuboDeFolhas {
             position: fixed;
-            top: -160vh; /* Fica guardado bem acima do topo da tela */
+            top: -260vh; /* Fica guardado bem alto acima da tela */
             left: 0;
             width: 100vw;
-            height: 150vh; /* Altura massiva para abranger tudo */
-            z-index: 100000; /* Fica na frente do filtro verde */
+            height: 250vh; /* Aumentado para ter folhas caindo por mais tempo */
+            z-index: 100000; 
             pointer-events: none;
         }
 
-        /* Animação que faz o cubo descer inteiro cobrindo a tela */
+        /* Animação sincronizada para durar exatamente os 5 segundos da tela verde */
         @keyframes quedaDoCubo {
-            0% { top: -160vh; }
-            100% { top: 110vh; }
+            0% { top: -250vh; }
+            100% { top: 100vh; }
         }
 
         .folha-virtual {
@@ -201,7 +201,7 @@
             border-radius: 50px;
             font-weight: bold;
             font-size: 1.1rem;
-            z-index: 100001; /* Fica acima das folhas */
+            z-index: 100001; 
             box-shadow: 0 12px 35px rgba(0,0,0,0.4);
             max-width: 85%;
             text-align: center;
@@ -272,7 +272,7 @@
                 </li>
                 <li>
                     <strong>🌳 Matas Ciliares: As Guardiãs das Águas</strong>
-                    Manter as árvores nas margens dos rios é um compromisso ético. Estas matas funcionam como cílios, filtrando a água da chuva e criando corridors seguros para que os animais da nossa fauna possam circular livremente.
+                    Manter as árvores nas margens dos rios é um compromisso ético. Estas matas funcionam como cílios, filtrando a água da chuva e criando corredores seguros para que os animais da nossa fauna possam circular livremente.
                 </li>
             </ul>
         </section>
@@ -282,7 +282,7 @@
             <div class="img-container">
                 <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1000&q=80" alt="Natureza protegida">
             </div>
-            <p>Este projeto ensinou-me que ser "sustentável" não é um concept teórico dos livros; é uma prática de cuidado diário com a terra. O "agro forte" que eu defendo é aquele que entende que a natureza é a sua maior aliada.</p>
+            <p>Este projeto ensinou-me que ser "sustentável" não é um conceito teórico dos livros; é uma prática de cuidado diário com a terra. O "agro forte" que eu defendo é aquele que entende que a natureza é a sua maior aliada.</p>
             
             <div class="conclusao-destaque">
                 <p>🌱 <strong>Reflexão Final:</strong> Vejo que o papel do programa Agrinho é semear essa consciência. O equilíbrio entre produção e preservação não é apenas uma meta técnica, é o único caminho para que o nosso estado continue a ser um lugar próspero para as próximas gerações.</p>
@@ -330,50 +330,45 @@
             window.speechSynthesis.speak(fala);
         }
 
-        // EXECUÇÃO DO NOVO CONCEITO DO CUBO DE FOLHAS
+        // FUNÇÃO ATUALIZADA - QUEDA SUAVE E CONSTANTE
         function semearFuturo() {
             const filtro = document.getElementById("filtroVerde");
             const cubo = document.getElementById("cuboDeFolhas");
             const msg = document.getElementById("feedbackEasterEgg");
 
-            // Limpa folhas antigas se houver
             cubo.innerHTML = "";
 
-            // 1. Gera 80 folhas distribuídas aleatoriamente por todo o espaço tridimensional do Cubo
-            for (let i = 0; i < 80; i++) {
+            // Aumentado para 120 folhas para garantir constância na descida lenta
+            for (let i = 0; i < 120; i++) {
                 const folha = document.createElement('div');
                 folha.className = 'folha-virtual';
                 folha.innerText = '🍃';
                 
-                // Posições aleatórias dentro do cubo gigante
                 folha.style.left = Math.random() * 100 + 'vw';
-                folha.style.top = Math.random() * 150 + 'vh';
+                // Espalha as folhas de forma bem ampla por toda a altura do cubo gigante
+                folha.style.top = Math.random() * 250 + 'vh';
                 
-                // Variabilidade física das folhas
-                const tamanho = Math.random() * 18 + 16;
-                folha.style.fontSize = tamanho + 'px';
+                const tamanho = Math.random() * 16 + 16;
+                folha.style.fontSize = size = tamanho + 'px';
                 folha.style.transform = `rotate(${Math.random() * 360}deg)`;
                 
                 cubo.appendChild(folha);
             }
 
-            // 2. Faz o fundo ficar bem esverdeado
             filtro.style.backgroundColor = "rgba(34, 139, 34, 0.55)";
 
-            // 3. Ativa o disparo visual do cubo e da animação de queda
-            cubo.style.animation = "quedaDoCubo 5s cubic-bezier(0.25, 1, 0.5, 1) forwards";
+            // A queda agora dura exatamente 5 segundos inteiros de forma linear (sem pressa)
+            cubo.style.animation = "quedaDoCubo 5s linear forwards";
             
-            // Exibe os contêineres na tela
             filtro.style.display = "block";
             cubo.style.display = "block";
             msg.style.display = "block";
 
-            // Delay milimétrico para o balão surgir com suavidade na frente
             setTimeout(() => {
                 msg.style.opacity = "1";
             }, 50);
 
-            // 4. Reseta tudo exatamente após 5 segundos
+            // Reseta tudo de forma limpa após os 5 segundos
             setTimeout(() => {
                 msg.style.opacity = "0";
                 filtro.style.backgroundColor = "rgba(34, 139, 34, 0)";
@@ -382,10 +377,10 @@
                     filtro.style.display = "none";
                     cubo.style.display = "none";
                     msg.style.display = "none";
-                    cubo.style.animation = ""; // Reseta animação para o próximo clique
+                    cubo.style.animation = ""; 
                 }, 500);
             }, 5000);
         }
     </script>
 </body>
-    </html>
+</html>
