@@ -26,6 +26,20 @@
             font-size: 18px;
         }
 
+        /* Camada transparente para o efeito esverdeado do Easter Egg */
+        #filtroVerde {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: rgba(46, 125, 50, 0); pointer-events: none;
+            z-index: 9999; transition: background-color 1.5s ease;
+        }
+
+        /* Animação para fazer as folhas balançarem como se caíssem com o vento */
+        @keyframes balancoFolha {
+            0% { transform: translateX(0) rotate(0deg); }
+            50% { transform: translateX(25px) rotate(45deg); }
+            100% { transform: translateX(-25px) rotate(90deg); }
+        }
+
         /* 2. ELEMENTOS DO CÉU (Astro e nuvens que se movem ou mudam no modo escuro) */
         .astro {
             position: absolute; top: 80px; left: 5%; width: 65px; height: 65px;
@@ -48,11 +62,14 @@
         }
         .logo { 
             font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1.5rem; 
-            color: #1b5e20; cursor: pointer; display: flex; align-items: center; gap: 10px;
-            transition: transform 0.3s ease;
+            color: #1b5e20; display: flex; align-items: center; gap: 10px;
             user-select: none;
         }
-        .logo:hover { transform: scale(1.05); }
+        /* Estilizando apenas o emoji da plantinha para virar um botão interativo */
+        .logo-emoji {
+            cursor: pointer; display: inline-block; transition: transform 0.2s ease;
+        }
+        .logo-emoji:hover { transform: scale(1.2) rotate(10deg); }
 
         /* 4. JANELA DE ACESSIBILIDADE (Menu secreto que abre ao clicar na engrenagem) */
         .container-acessibilidade { position: relative; }
@@ -80,7 +97,7 @@
         }
         .btn-opcao:hover { background-color: #000; color: #fff; }
 
-        /* 5. TITULO PRINCIPAL (Abertura do site) */
+        /* 5. TÍTULO PRINCIPAL (Abertura do site) */
         .hero { padding: 80px 20px; max-width: 1000px; margin: 0 auto; position: relative; z-index: 2; }
         .hero h1 { 
             font-family: 'Poppins', sans-serif; color: #1b5e20; font-size: 4rem; 
@@ -165,12 +182,14 @@
 </head>
 <body>
 
+    <div id="filtroVerde"></div>
+
     <div class="astro" id="corpoCeleste"></div>
     <div class="nuvem n1"></div>
     <div class="nuvem n2"></div>
 
     <nav>
-        <div class="logo" onclick="semearFuturo()" title="Clique para semear o futuro!">🌱 Agrinho 2026</div>
+        <div class="logo"><span class="logo-emoji" onclick="semearFuturo()" title="Clique para semear o futuro!">🌱</span> Agrinho 2026</div>
         
         <div class="container-acessibilidade">
             <button class="btn-acessibilidade" onclick="toggleMenu()" aria-label="Abrir opções de acessibilidade">⚙️</button>
@@ -220,7 +239,7 @@
                 </li>
                 <li>
                     <strong>🌳 Matas Ciliares: As Guardiãs das Águas</strong>
-                    Manter as árvores nas margens dos rios é um compromisso ético. Essas matas funcionam como cílios, filtrando a água da chuva e criando corredores seguros para que os animais da nossa fauna possam circular livremente.
+                    Manter as árvores nas margens dos rios é um compromisso ético. Estas matas funcionam como cílios, filtrando a água da chuva e criando corredores seguros para que os animais da nossa fauna possam circular livremente.
                 </li>
             </ul>
         </section>
@@ -233,13 +252,13 @@
             <p>Este projeto ensinou-me que ser "sustentável" não é um conceito teórico dos livros; é uma prática de cuidado diário com a terra. O "agro forte" que eu defendo é aquele que entende que a natureza é a sua maior aliada.</p>
             
             <div class="conclusao-destaque">
-                <p>🌱 <strong>Reflexão Final:</strong> Vejo que o papel do programa Agrinho é semear essa consciência. O equilíbrio entre produção e preservação não é apenas uma meta técnica, é o único caminho para que o nosso estado continue a ser um lugar próspero para as próximas gerações.</p>
+                <p>🌱 <strong>Reflexão Final:</strong> Como jovem estudante, vejo que o papel do programa Agrinho é semear essa consciência. O equilíbrio entre produção e preservação não é apenas uma meta técnica, é o único caminho para que o nosso estado continue a ser um lugar próspero para as próximas gerações.</p>
             </div>
         </section>
     </main>
 
     <footer>
-        <p><strong>Desenvolvido por:</strong> [Guilherme Schein Palinski]</p>
+        <p><strong>Desenvolvido individualmente por:</strong> Guilherme Schein Palinski</p>
         <p>Projeto para o Concurso Agrinho 2026 — Rumo ao Futuro Sustentável</p>
     </footer>
 
@@ -282,34 +301,46 @@
             window.speechSynthesis.speak(fala);
         }
 
-        // O SEGREDO DO SITE: Faz chover folhinhas virtuais e solta um aviso na tela!
+        // O SEGREDO DO SITE: Faz chover folhinhas virtuais e ativa o tom esverdeado
         function semearFuturo() {
-            // Criando 20 folhinhas de uma vez só usando um laço de repetição
-            for (let i = 0; i < 20; i++) {
+            const filtro = document.getElementById("filtroVerde");
+            
+            // Ativa o tom verde transparente na tela de forma suave
+            filtro.style.backgroundColor = "rgba(46, 125, 50, 0.15)";
+
+            // Criando 40 folhas espalhadas para cobrir bem a tela inteira por 5 segundos
+            for (let i = 0; i < 40; i++) {
                 const folha = document.createElement('div');
                 folha.innerText = '🍃';
                 folha.style.position = 'fixed';
-                folha.style.left = Math.random() * 100 + 'vw'; // Espalha as folhas por toda a largura da tela
-                folha.style.top = '-50px'; // Elas começam um pouco acima do topo escondidas
-                folha.style.fontSize = (Math.random() * 15 + 20) + 'px'; // Tamanhos variados para dar realismo
-                folha.style.transition = 'top 3s linear, transform 3s linear';
+                
+                // Distribui o início delas de forma randômica por toda a largura da tela
+                folha.style.left = Math.random() * 100 + 'vw';
+                
+                // Faz com que elas caiam de tempos em tempos diferentes para criar efeito real de chuva
+                folha.style.top = -(Math.random() * 100 + 50) + 'px'; 
+                
+                folha.style.fontSize = (Math.random() * 15 + 20) + 'px';
+                
+                // Aplica a animação CSS que criamos lá em cima para elas caírem balançando
+                folha.style.animation = 'balancoFolha 3s infinite ease-in-out';
+                folha.style.transition = 'top 5s linear';
                 folha.style.zIndex = '10000';
                 folha.style.pointerEvents = 'none';
                 document.body.appendChild(folha);
                 
-                // Faz a folha se mover até o chão e rodar enquanto cai
+                // Força a queda até o final da tela por 5 segundos
                 setTimeout(() => {
                     folha.style.top = '110vh';
-                    folha.style.transform = 'rotate(' + (Math.random() * 720) + 'deg)';
                 }, 100);
                 
-                // Deleta a folha do site depois que ela sumir para não travar o celular
-                setTimeout(() => folha.remove(), 3500);
+                // Limpeza completa das folhas para o navegador ficar limpo
+                setTimeout(() => folha.remove(), 5200);
             }
             
-            // Faz aparecer o balãozinho com a mensagem bonita no centro da tela
+            // Faz aparecer o balãozinho com a frase que você escolheu no meio da tela
             const feedback = document.createElement('div');
-            feedback.innerText = "A semear ideias sustentáveis... 🌱";
+            feedback.innerText = "Semear conhecimento hoje para colher um amanhã sustentável! 🌾";
             feedback.style.position = 'fixed';
             feedback.style.top = '50%';
             feedback.style.left = '50%';
@@ -321,10 +352,14 @@
             feedback.style.fontWeight = 'bold';
             feedback.style.zIndex = '10001';
             feedback.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
+            feedback.style.maxWidth = '90%';
             document.body.appendChild(feedback);
             
-            // Tira a mensagem da tela depois de 2 segundos e meio
-            setTimeout(() => feedback.remove(), 2500);
+            // Remove o balãozinho e desativa o tom verde da tela após os 5 segundos exatos
+            setTimeout(() => {
+                feedback.remove();
+                filtro.style.backgroundColor = "rgba(46, 125, 50, 0)";
+            }, 5000);
         }
     </script>
 </body>
