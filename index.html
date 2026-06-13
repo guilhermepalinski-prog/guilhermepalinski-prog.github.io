@@ -26,18 +26,18 @@
             font-size: 18px;
         }
 
-        /* Camada transparente para o efeito esverdeado do Easter Egg */
+        /* Camada transparente para o efeito esverdeado intenso do Easter Egg */
         #filtroVerde {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background-color: rgba(46, 125, 50, 0); pointer-events: none;
-            z-index: 9999; transition: background-color 1.5s ease;
+            z-index: 9999; transition: background-color 1.2s ease;
         }
 
         /* Animação para fazer as folhas balançarem como se caíssem com o vento */
         @keyframes balancoFolha {
             0% { transform: translateX(0) rotate(0deg); }
-            50% { transform: translateX(25px) rotate(45deg); }
-            100% { transform: translateX(-25px) rotate(90deg); }
+            50% { transform: translateX(30px) rotate(60deg); }
+            100% { transform: translateX(-30px) rotate(120deg); }
         }
 
         /* 2. ELEMENTOS DO CÉU (Astro e nuvens que se movem ou mudam no modo escuro) */
@@ -252,13 +252,13 @@
             <p>Este projeto ensinou-me que ser "sustentável" não é um conceito teórico dos livros; é uma prática de cuidado diário com a terra. O "agro forte" que eu defendo é aquele que entende que a natureza é a sua maior aliada.</p>
             
             <div class="conclusao-destaque">
-                <p>🌱 <strong>Reflexão Final:</strong> Como jovem estudante, vejo que o papel do programa Agrinho é semear essa consciência. O equilíbrio entre produção e preservação não é apenas uma meta técnica, é o único caminho para que o nosso estado continue a ser um lugar próspero para as próximas gerações.</p>
+                <p>🌱 <strong>Reflexão Final:</strong> Vejo que o papel do programa Agrinho é semear essa consciência. O equilíbrio entre produção e preservação não é apenas uma meta técnica, é o único caminho para que o nosso estado continue a ser um lugar próspero para as próximas gerais.</p>
             </div>
         </section>
     </main>
 
     <footer>
-        <p><strong>Desenvolvido individualmente por:</strong> Guilherme Schein Palinski</p>
+        <p><strong>Desenvolvido por:</strong> Guilherme Schein Palinski</p>
         <p>Projeto para o Concurso Agrinho 2026 — Rumo ao Futuro Sustentável</p>
     </footer>
 
@@ -301,44 +301,59 @@
             window.speechSynthesis.speak(fala);
         }
 
-        // O SEGREDO DO SITE: Faz chover folhinhas virtuais e ativa o tom esverdeado
+        // O SEGREDO DO SITE: Faz chover folhinhas virtuais em múltiplas camadas 3D e ativa o tom verde forte
         function semearFuturo() {
             const filtro = document.getElementById("filtroVerde");
             
-            // Ativa o tom verde transparente na tela de forma suave
-            filtro.style.backgroundColor = "rgba(46, 125, 50, 0.15)";
+            // Ativa o tom verde bem mais nítido e intenso na tela inteira
+            filtro.style.backgroundColor = "rgba(34, 139, 34, 0.35)";
 
-            // Criando 40 folhas espalhadas para cobrir bem a tela inteira por 5 segundos
-            for (let i = 0; i < 40; i++) {
+            // Criando 60 folhas divididas em camadas para gerar profundidade real de chuva
+            for (let i = 0; i < 60; i++) {
                 const folha = document.createElement('div');
                 folha.innerText = '🍃';
                 folha.style.position = 'fixed';
-                
-                // Distribui o início delas de forma randômica por toda a largura da tela
                 folha.style.left = Math.random() * 100 + 'vw';
                 
-                // Faz com que elas caiam de tempos em tempos diferentes para criar efeito real de chuva
-                folha.style.top = -(Math.random() * 100 + 50) + 'px'; 
-                
-                folha.style.fontSize = (Math.random() * 15 + 20) + 'px';
-                
-                // Aplica a animação CSS que criamos lá em cima para elas caírem balançando
-                folha.style.animation = 'balancoFolha 3s infinite ease-in-out';
-                folha.style.transition = 'top 5s linear';
-                folha.style.zIndex = '10000';
+                // Distribui a saída das folhas no topo em alturas diferentes
+                folha.style.top = -(Math.random() * 150 + 50) + 'px'; 
                 folha.style.pointerEvents = 'none';
+                
+                // Sorteando a camada de profundidade (Perto, Médio ou Longe)
+                const camadaAleatoria = Math.floor(Math.random() * 3);
+                
+                if (camadaAleatoria === 0) {
+                    // Camada 1: Folhas que passam "perto dos olhos" (Maiores, rápidas e à frente de tudo)
+                    folha.style.fontSize = (Math.random() * 10 + 32) + 'px';
+                    folha.style.transition = 'top 3.5s linear';
+                    folha.style.zIndex = '10005'; 
+                } else if (camadaAleatoria === 1) {
+                    // Camada 2: Folhas normais do meio do cenário
+                    folha.style.fontSize = (Math.random() * 8 + 22) + 'px';
+                    folha.style.transition = 'top 4.8s linear';
+                    folha.style.zIndex = '10000';
+                } else {
+                    // Camada 3: Folhas distantes ao fundo (Pequenas, lentas e levemente borradas)
+                    folha.style.fontSize = (Math.random() * 6 + 12) + 'px';
+                    folha.style.transition = 'top 6s linear';
+                    folha.style.filter = 'blur(1px)';
+                    folha.style.zIndex = '9998'; 
+                }
+
+                // Aplica o efeito de oscilação natural de queda
+                folha.style.animation = 'balancoFolha ' + (Math.random() * 2 + 2) + 's infinite ease-in-out';
                 document.body.appendChild(folha);
                 
-                // Força a queda até o final da tela por 5 segundos
+                // Força o movimento de queda vertical
                 setTimeout(() => {
                     folha.style.top = '110vh';
                 }, 100);
                 
-                // Limpeza completa das folhas para o navegador ficar limpo
-                setTimeout(() => folha.remove(), 5200);
+                // Remove a folha após terminar o ciclo dela
+                setTimeout(() => folha.remove(), 6200);
             }
             
-            // Faz aparecer o balãozinho com a frase que você escolheu no meio da tela
+            // Faz aparecer o balãozinho com a frase exata no centro da tela
             const feedback = document.createElement('div');
             feedback.innerText = "Semear conhecimento hoje para colher um amanhã sustentável! 🌾";
             feedback.style.position = 'fixed';
@@ -350,17 +365,12 @@
             feedback.style.padding = '20px 40px';
             feedback.style.borderRadius = '50px';
             feedback.style.fontWeight = 'bold';
-            feedback.style.zIndex = '10001';
-            feedback.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
+            feedback.style.zIndex = '10006'; // Fica por cima até das folhas mais próximas
+            feedback.style.boxShadow = '0 10px 30px rgba(0,0,0,0.4)';
             feedback.style.maxWidth = '90%';
             document.body.appendChild(feedback);
             
-            // Remove o balãozinho e desativa o tom verde da tela após os 5 segundos exatos
+            // Remove o balãozinho e desativa o filtro esverdeado da tela após os 5 segundos exatos
             setTimeout(() => {
                 feedback.remove();
-                filtro.style.backgroundColor = "rgba(46, 125, 50, 0)";
-            }, 5000);
-        }
-    </script>
-</body>
-</html>
+   
