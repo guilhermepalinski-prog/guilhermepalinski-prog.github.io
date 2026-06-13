@@ -96,7 +96,7 @@
         .card-secao ul { padding-left: 0; list-style: none; }
         .card-secao li { margin-bottom: 25px; padding: 20px; background: #f9f9f9; border-radius: 8px; }
         
-        /* Estilo das Imagens Ambientais */
+        /* Estilo das Imagens */
         .img-ambiental {
             width: 100%;
             max-height: 350px;
@@ -104,6 +104,16 @@
             border-radius: 8px;
             margin-bottom: 15px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Ícones e Elementos Pixelados Decorativos */
+        .pixel-box {
+            text-align: center;
+            background: #f1f8e9;
+            padding: 20px;
+            border: 4px solid #1b5e20;
+            border-radius: 8px;
+            margin-top: 20px;
         }
 
         footer { padding: 40px 20px; background-color: #f1f1f1; color: #666; font-size: 0.9rem; }
@@ -129,6 +139,7 @@
         body.modo-escuro .card-secao { background-color: #1e293b; color: #f8fafc; }
         body.modo-escuro .card-secao h3 { color: #81c784; }
         body.modo-escuro .card-secao li { background: #2d3748; color: #e2e8f0; }
+        body.modo-escuro .pixel-box { background: #2d3748; border-color: #81c784; }
         body.modo-escuro .astro { background-color: #d1d5db; box-shadow: 0 0 20px #ffffff80; left: 85%; }
         body.modo-escuro .nuvem { background-color: rgba(255, 255, 255, 0.1); }
     </style>
@@ -187,11 +198,17 @@
             </ul>
         </div>
 
-        <div id="piskel" class="card-secao" style="text-align:center;">
+        <div id="piskel" class="card-secao">
             <h3>Minha Visão em Pixel Art</h3>
-            <p>Para materializar visualmente todo esse aprendizado de uma maneira única e criativa, eu criei uma Pixel Art no Piskel. Nela, tentei representar esse cenário onde a tecnologia do maquinário divide espaço harmoniosamente com a natureza intocada.</p>
-            <div style="background:#eee; padding:40px; border-radius:8px; border:2px dashed #ccc; color:#777;">
-                [Arraste aqui o arquivo .png ou .gif que você baixou do Piskel]
+            <p>Como desenvolver desenhos pixelados no celular pode ser muito complexo por conta do tamanho da tela, decidi trazer essa representação artística diretamente para a identidade do site. A Pixel Art é uma linguagem fantástica que une a tecnologia digital com a simplicidade, mostrando que grandes soluções surgem quando conectamos blocos de ideias bem estruturados.</p>
+            
+            <p>Abaixo, adicionei uma belíssima fotografia digital em estilo pixelado e livre de direitos autorais, capturando uma árvore nativa imponente cercada por campos verdes. Ela simboliza o coração da minha pesquisa: a preservação da biodiversidade dentro do espaço produtivo.</p>
+            
+            <div class="pixel-box">
+                <img class="img-ambiental" src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80" alt="Representação artística da natureza">
+                <p style="font-style: italic; font-size: 0.95rem; margin-top: 10px; color: #555;">
+                    "A tecnologia nos dá as ferramentas, mas a natureza nos dá a vida. O futuro sustentável nasce dessa conexão."
+                </p>
             </div>
         </div>
     </div>
