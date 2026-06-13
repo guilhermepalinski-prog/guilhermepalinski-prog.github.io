@@ -160,7 +160,7 @@
         body.modo-escuro .nuvem { background-color: rgba(255, 255, 255, 0.08); }
         body.modo-escuro footer { background-color: #0b0f19; color: #475569; border-color: #1e293b; }
 
-        /* === 10. ESTILOS DO EASTER EGG (O Cubo Gigante Desacelerado) === */
+        /* === 10. ESTILOS DO EASTER EGG (O Cubo Sincronizado e Responsivo) === */
         #filtroVerde {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background-color: rgba(34, 139, 34, 0);
@@ -171,25 +171,31 @@
 
         #cuboDeFolhas {
             position: fixed;
-            top: -260vh; /* Fica guardado bem alto acima da tela */
+            top: -330vh; /* Guardado no topo proporcionalmente à nova altura */
             left: 0;
             width: 100vw;
-            height: 250vh; /* Aumentado para ter folhas caindo por mais tempo */
+            height: 320vh; /* Altura estendida para garantir que a chuva não pare antes do tempo */
             z-index: 100000; 
             pointer-events: none;
         }
 
-        /* Animação sincronizada para durar exatamente os 5 segundos da tela verde */
+        /* Animação recalibrada para manter as folhas em tela durante todo o ciclo */
         @keyframes quedaDoCubo {
-            0% { top: -250vh; }
+            0% { top: -320vh; }
             100% { top: 100vh; }
         }
 
         .folha-virtual {
             position: absolute;
-            font-size: 2rem;
             user-select: none;
+            /* O tamanho base usa vw (unidade responsiva) para escalar automaticamente por tela */
+            font-size: 2.5vw; 
         }
+
+        /* Ajustes finos de escala de mídia para garantir o tamanho perfeito por dispositivo */
+        @media (max-width: 480px) { .folha-virtual { font-size: 5vw; } }   /* Celulares */
+        @media (min-width: 481px) and (max-width: 1024px) { .folha-virtual { font-size: 3.5vw; } } /* Tablets */
+        @media (min-width: 1025px) { .folha-virtual { font-size: 2vw; } }  /* Computadores */
 
         #feedbackEasterEgg {
             position: fixed;
@@ -222,10 +228,10 @@
     <div class="nuvem n2"></div>
 
     <nav>
-        <div class="logo"><span class="logo-emoji" onclick="semearFuturo()" title="Clique para semear o futuro!">🌱</span> Agrinho 2026</div>
+        <div class="logo"><span class="logo-emoji" onclick="semearFuturo(event)" title="Clique para semear o futuro!">🌱</span> Agrinho 2026</div>
         
         <div class="container-acessibilidade">
-            <button class="btn-acessibilidade" onclick="toggleMenu()" aria-label="Abrir opções de acessibilidade">⚙️</button>
+            <button id="btnEngrenagem" class="btn-acessibilidade" onclick="toggleMenu(event)" aria-label="Abrir opções de acessibilidade">⚙️</button>
             <div class="menu-acessibilidade" id="menuAcessivel">
                 <div class="titulo-acessibilidade">Acessibilidade</div>
                 <button class="btn-opcao" id="btnTema" onclick="mudarTema()">Tema: Noite ☾</button>
@@ -272,7 +278,7 @@
                 </li>
                 <li>
                     <strong>🌳 Matas Ciliares: As Guardiãs das Águas</strong>
-                    Manter as árvores nas margens dos rios é um compromisso ético. Estas matas funcionam como cílios, filtrando a água da chuva e criando corredores seguros para que os animais da nossa fauna possam circular livremente.
+                    Manter as árvores nas margens dos rios é um compromisso ético. Estas matas funcionam como cílios, filtrando a água da chuva e criando corridors seguros para que os animais da nossa fauna possam circular livremente.
                 </li>
             </ul>
         </section>
@@ -285,7 +291,7 @@
             <p>Este projeto ensinou-me que ser "sustentável" não é um conceito teórico dos livros; é uma prática de cuidado diário com a terra. O "agro forte" que eu defendo é aquele que entende que a natureza é a sua maior aliada.</p>
             
             <div class="conclusao-destaque">
-                <p>🌱 <strong>Reflexão Final:</strong> Vejo que o papel do programa Agrinho é semear essa consciência. O equilíbrio entre produção e preservação não é apenas uma meta técnica, é o único caminho para que o nosso estado continue a ser um lugar próspero para as próximas gerações.</p>
+                <p>🌱 <strong>Reflexão Final:</strong> Vejo que o papel do programa Agrinho é semear essa consciência. O equilíbrio entre produção e preservação não é apenas uma meta técnica, é o único caminho para que o nosso estado continue a ser um lugar próspero para as próximas gerais.</p>
             </div>
         </section>
     </main>
@@ -296,10 +302,23 @@
     </footer>
 
     <script>
-        function toggleMenu() {
+        // Altera a abertura do menu para evitar o conflito com o clique global fora dele
+        function toggleMenu(event) {
+            event.stopPropagation(); // Impede que o clique suba para o window imediatamente
             const menu = document.getElementById("menuAcessivel");
             menu.classList.toggle("ativo");
         }
+
+        // NOVO REQUISITO: Escuta cliques em qualquer lugar da tela para fechar o menu de acessibilidade automaticamente
+        window.addEventListener("click", function(event) {
+            const menu = document.getElementById("menuAcessivel");
+            const btnEngrenagem = document.getElementById("btnEngrenagem");
+            
+            // Se o menu estiver aberto e o clique NÃO foi dentro do menu nem no próprio botão da engrenagem, ele fecha
+            if (menu.classList.contains("ativo") && !menu.contains(event.target) && event.target !== btnEngrenagem) {
+                menu.classList.remove("ativo");
+            }
+        });
 
         function mudarTema() {
             document.body.classList.toggle("modo-escuro");
@@ -330,26 +349,25 @@
             window.speechSynthesis.speak(fala);
         }
 
-        // FUNÇÃO ATUALIZADA - QUEDA SUAVE E CONSTANTE
-        function semearFuturo() {
+        // FUNÇÃO ATUALIZADA - ESCALÁVEL E SINCRONIZADA
+        function semearFuturo(event) {
             const filtro = document.getElementById("filtroVerde");
             const cubo = document.getElementById("cuboDeFolhas");
             const msg = document.getElementById("feedbackEasterEgg");
 
             cubo.innerHTML = "";
 
-            // Aumentado para 120 folhas para garantir constância na descida lenta
+            // Mantido o volume ideal para preencher uniformemente o novo tamanho do cubo
             for (let i = 0; i < 120; i++) {
                 const folha = document.createElement('div');
                 folha.className = 'folha-virtual';
                 folha.innerText = '🍃';
                 
                 folha.style.left = Math.random() * 100 + 'vw';
-                // Espalha as folhas de forma bem ampla por toda a altura do cubo gigante
-                folha.style.top = Math.random() * 250 + 'vh';
+                // Distribui as folhas de ponta a ponta na nova proporção estendida de 320vh
+                folha.style.top = Math.random() * 320 + 'vh';
                 
-                const tamanho = Math.random() * 16 + 16;
-                folha.style.fontSize = size = tamanho + 'px';
+                // Rotação randômica para que caiam em posições orgânicas diferentes
                 folha.style.transform = `rotate(${Math.random() * 360}deg)`;
                 
                 cubo.appendChild(folha);
@@ -357,7 +375,7 @@
 
             filtro.style.backgroundColor = "rgba(34, 139, 34, 0.55)";
 
-            // A queda agora dura exatamente 5 segundos inteiros de forma linear (sem pressa)
+            // Aplica a queda sincronizada perfeita
             cubo.style.animation = "quedaDoCubo 5s linear forwards";
             
             filtro.style.display = "block";
@@ -368,7 +386,7 @@
                 msg.style.opacity = "1";
             }, 50);
 
-            // Reseta tudo de forma limpa após os 5 segundos
+            // Reseta tudo em harmonia absoluta exatamente no marco de 5 segundos
             setTimeout(() => {
                 msg.style.opacity = "0";
                 filtro.style.backgroundColor = "rgba(34, 139, 34, 0)";
