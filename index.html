@@ -94,7 +94,17 @@
         .card-secao h3 { color: #1b5e20; margin-top: 0; font-size: 1.8rem; border-left: 5px solid #ffa000; padding-left: 15px; }
         .card-secao p { line-height: 1.7; margin-bottom: 15px; }
         .card-secao ul { padding-left: 0; list-style: none; }
-        .card-secao li { margin-bottom: 20px; padding: 15px; background: #f9f9f9; border-radius: 8px; }
+        .card-secao li { margin-bottom: 25px; padding: 20px; background: #f9f9f9; border-radius: 8px; }
+        
+        /* Estilo das Imagens Ambientais */
+        .img-ambiental {
+            width: 100%;
+            max-height: 350px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
 
         footer { padding: 40px 20px; background-color: #f1f1f1; color: #666; font-size: 0.9rem; }
 
@@ -105,6 +115,7 @@
             .astro { top: 250px; width: 45px; height: 45px; }
             nav { flex-direction: column; gap: 10px; }
             .n2 { display: none; }
+            .img-ambiental { max-height: 200px; }
         }
 
         /* --- MODO ESCURO (NOITE) --- */
@@ -152,23 +163,33 @@
     <div class="conteudo" id="trabalhoTotal">
         <div id="introducao" class="card-secao">
             <h3>O Grande Desafio do Século</h3>
-            <p>Até o ano de 2050, o planeta Terra terá quase 10 bilhões de habitantes. Como estudante, pesquisei que o campo precisará produzir muito mais alimento do que produz hoje. Mas como aumentar a produção sem avançar sobre as florestas?</p>
-            <p>Este projeto busca provar que não precisamos escolher entre uma agricultura forte ou a proteção do meio ambiente. O segredo está no <strong>equilíbrio tecnológico</strong>, unindo a ciência com o respeito à natureza.</p>
+            <img class="img-ambiental" src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=800&q=80" alt="Campo verde sustentável">
+            <p>Quando comecei a pensar sobre o tema deste ano, uma pergunta não saía da minha cabeça: como vamos conseguir alimentar quase 10 bilhões de pessoas em 2050 sem avançar ou destruir o que restou das nossas florestas?</p>
+            <p>Por muito tempo, todo mundo achava que era impossível conciliar um agro forte com a proteção do meio ambiente. Parecia que tínhamos que escolher um lado. Mas a grande verdade é que a resposta não está em escolher, e sim em equilibrar. E o Paraná tem se tornado um exemplo gigante de como a tecnologia pode ser a melhor amiga da natureza.</p>
         </div>
 
         <div id="desenvolvimento" class="card-secao">
             <h3>A Revolução Verde na Prática</h3>
-            <p>Analisei três pilares fundamentais que os agricultores estão utilizando para garantir um futuro sustentável:</p>
+            <p>Durante a minha pesquisa, decidi focar em três atitudes práticas e reais que mostram como esse equilíbrio funciona na vida real de uma propriedade rural:</p>
             <ul>
-                <li><strong>🚜 1. Plantio Direto:</strong> Em vez de revirar a terra, as sementes são plantadas sobre a palha da colheita anterior. Isso funciona como um cobertor térmico que segura a umidade e protege o solo da erosão.</li>
-                <li><strong>🛸 2. Tecnologia de Precisão:</strong> O uso de drones e sensores permite que o produtor aplique recursos apenas onde a planta realmente precisa, evitando desperdícios e protegendo os rios.</li>
-                <li><strong>🌳 3. Matas Ciliares:</strong> Preservar as árvores em volta das nascentes é vital. Elas filtram a água e garantem a sobrevivência da fauna local, funcionando como guardiãs do ecossistema.</li>
+                <li>
+                    <strong>🚜 1. O Protetor do Solo (Plantio Direto)</strong><br>
+                    Descobri que os produtores mais conscientes não saem revirando a terra antes de plantar. Eles colocam as novas sementes por cima dos restos da colheita antiga. Isso cria uma espécie de "cobertor" natural na terra. Esse processo segura a umidade da chuva, evita que a enxurrada crie erosões e mantém o solo vivo e saudável de verdade.
+                </li>
+                <li>
+                    <strong>🛸 2. Tecnologia Otimizada (Drones e Monitoramento)</strong><br>
+                    O campo hoje em dia é super moderno. Com drones sobrevoando as lavouras, o produtor consegue ver exatamente quais plantas estão com problemas ou pragas. Em vez de espalhar defensivos por toda a fazenda, ele aplica a quantidade exata apenas no ponto necessitado. Isso gera uma economia enorme e evita poluir a água e o solo em volta.
+                </li>
+                <li>
+                    <strong>🌳 3. A Linha de Frente das Águas (Matas Ciliares)</strong><br>
+                    Não dá para falar de agro forte sem falar de água limpa. Preservar a vegetação nativa na beira dos rios e nascentes é um dever de todos. Essas árvores funcionam como barreiras naturais que filtram a sujeira da chuva e impedem que as margens do rio desmoronem, além de garantir o espaço perfeito para os animais nativos circularem em segurança.
+                </li>
             </ul>
         </div>
 
         <div id="piskel" class="card-secao" style="text-align:center;">
             <h3>Minha Visão em Pixel Art</h3>
-            <p>Para materializar visualmente este conceito, criei uma Pixel Art no Piskel que resume o equilíbrio entre a tecnologia agrícola e a biodiversidade preservada.</p>
+            <p>Para materializar visualmente todo esse aprendizado de uma maneira única e criativa, eu criei uma Pixel Art no Piskel. Nela, tentei representar esse cenário onde a tecnologia do maquinário divide espaço harmoniosamente com a natureza intocada.</p>
             <div style="background:#eee; padding:40px; border-radius:8px; border:2px dashed #ccc; color:#777;">
                 [Arraste aqui o arquivo .png ou .gif que você baixou do Piskel]
             </div>
@@ -199,8 +220,8 @@
             if (window.speechSynthesis.speaking) { window.speechSynthesis.cancel(); return; }
             const texto = document.getElementById("trabalhoTotal").innerText;
             const fala = new SpeechSynthesisUtterance(texto);
-            fala.lang = "pt-BR";
-            window.speechSynthesis.speak(fala);
+            falar.lang = "pt-BR";
+            window.speechSynthesis.speak(falar);
         }
     </script>
 </body>
