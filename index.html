@@ -3,242 +3,328 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projeto Agrinho 2026 - Individual</title>
+    <title>Agrinho 2026 - Agro Forte e Sustentável</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* Fundo Dinâmico (Dia) */
+        /* 1. CONFIGURAÇÕES GERAIS (Organizando as margens e a estrutura base da página) */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
         body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box;
+            font-family: 'Lato', sans-serif; 
+            /* Um degradê suave que imita o horizonte e muda de cor quando ativamos a noite */
             background: linear-gradient(180deg, #b3e5fc 0%, #e3f2fd 35%, #ffffff 70%);
             background-attachment: fixed;
-            color: #2c3e50;
+            color: #334155;
             text-align: center;
-            transition: background 0.5s ease, color 0.3s ease, font-size 0.2s ease;
+            transition: background 0.6s ease, color 0.3s ease, font-size 0.2s ease;
             min-height: 100vh;
-            position: relative;
             overflow-x: hidden;
-            font-size: 16px;
+            font-size: 18px;
         }
 
-        /* --- ELEMENTOS DO CÉU --- */
+        /* 2. ELEMENTOS DO CÉU (Astro e nuvens que se movem ou mudam no modo escuro) */
         .astro {
-            position: absolute;
-            top: 80px;
-            left: 5%;
-            width: 60px;
-            height: 60px;
-            background-color: #ffb300;
-            border-radius: 50%;
-            box-shadow: 0 0 20px #ffb300;
-            transition: 0.5s ease;
-            z-index: 1;
+            position: absolute; top: 80px; left: 5%; width: 65px; height: 65px;
+            background-color: #ffb300; border-radius: 50%;
+            box-shadow: 0 0 30px #ffb300; transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1; pointer-events: none;
         }
         .nuvem {
-            position: absolute;
-            background-color: rgba(255, 255, 255, 0.85);
-            border-radius: 20px;
-            transition: 0.5s ease;
-            z-index: 1;
+            position: absolute; background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px; transition: 0.6s ease; z-index: 1; pointer-events: none;
         }
-        .n1 { top: 100px; right: 10%; width: 100px; height: 35px; }
-        .n2 { top: 160px; left: 15%; width: 130px; height: 40px; }
+        .n1 { top: 110px; right: 10%; width: 120px; height: 40px; }
+        .n2 { top: 180px; left: 18%; width: 150px; height: 50px; }
 
-        /* Menu de Navegação Superior */
+        /* 3. MENU SUPERIOR (Onde fica a nossa logo com o Easter Egg e o botão de engrenagem) */
         nav {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 5%;
-            background-color: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            position: relative;
-            z-index: 10;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 6%; background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 1000;
         }
-        .logo { font-weight: bold; font-size: 1.4rem; color: #2e7d32; display: flex; align-items: center; gap: 8px; }
+        .logo { 
+            font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1.5rem; 
+            color: #1b5e20; cursor: pointer; display: flex; align-items: center; gap: 10px;
+            transition: transform 0.3s ease;
+            user-select: none;
+        }
+        .logo:hover { transform: scale(1.05); }
 
-        /* --- MENU DE ACESSIBILIDADE DE ALTO CONTRASTE --- */
-        .container-acessibilidade { position: relative; z-index: 100; }
-        .btn-acessibilidade { background: none; border: none; cursor: pointer; font-size: 1.5rem; color: #333; padding: 5px; }
+        /* 4. JANELA DE ACESSIBILIDADE (Menu secreto que abre ao clicar na engrenagem) */
+        .container-acessibilidade { position: relative; }
+        .btn-acessibilidade { 
+            background: #1b5e20; color: white; border: none; cursor: pointer; 
+            font-size: 1.2rem; padding: 10px 15px; border-radius: 50%;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: 0.3s;
+        }
         .menu-acessibilidade {
-            display: none;
-            position: absolute;
-            top: 40px;
-            right: 0;
-            background-color: white;
-            border: 3px solid #000000;
-            border-radius: 8px;
-            padding: 12px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-            width: 180px;
-            flex-direction: column;
-            gap: 10px;
+            display: none; position: absolute; top: 55px; right: 0;
+            background-color: white; border: 3px solid #000; border-radius: 12px;
+            padding: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            width: 200px; flex-direction: column; gap: 12px;
         }
         .menu-acessibilidade.ativo { display: flex; }
-        .titulo-acessibilidade { font-size: 0.9rem; font-weight: bold; color: #000; border-bottom: 2px solid #000; padding-bottom: 5px; text-transform: uppercase; }
-        .btn-opcao { background-color: #fff; color: #000; border: 2px solid #000; padding: 8px; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        .titulo-acessibilidade { 
+            font-family: 'Poppins', sans-serif; font-size: 0.85rem; font-weight: 700; 
+            color: #000; border-bottom: 3px solid #000; padding-bottom: 5px; 
+            text-transform: uppercase; margin-bottom: 5px;
+        }
+        .btn-opcao { 
+            background-color: #fff; color: #000; border: 2px solid #000; 
+            padding: 10px; border-radius: 8px; cursor: pointer; font-weight: 700;
+            font-size: 0.9rem; transition: 0.2s;
+        }
         .btn-opcao:hover { background-color: #000; color: #fff; }
 
-        /* --- TEXTOS DO TEMA --- */
-        .hero { padding: 60px 20px; max-width: 900px; margin: 0 auto; position: relative; z-index: 2; }
-        .hero h1 { color: #1b5e20; font-size: 3.5rem; margin: 0; line-height: 1.1; }
-        .hero .subtitulo { font-size: 1.6rem; color: #5d4037; margin: 10px 0 20px 0; font-weight: 600; }
-        .linha-decorativa { width: 60px; height: 4px; background-color: #ffa000; margin: 0 auto 20px auto; border-radius: 2px; }
-        .frase-impacto { font-size: 1.2rem; font-style: italic; color: #555; max-width: 700px; margin: 0 auto; line-height: 1.6; }
+        /* 5. TITULO PRINCIPAL (Abertura do site) */
+        .hero { padding: 80px 20px; max-width: 1000px; margin: 0 auto; position: relative; z-index: 2; }
+        .hero h1 { 
+            font-family: 'Poppins', sans-serif; color: #1b5e20; font-size: 4rem; 
+            margin: 0; line-height: 1.1; letter-spacing: -1px;
+        }
+        .hero .subtitulo { 
+            font-size: 1.8rem; color: #5d4037; margin: 15px 0 25px; 
+            font-weight: 400; font-family: 'Poppins', sans-serif;
+        }
+        .linha-decorativa { width: 80px; height: 5px; background-color: #ffa000; margin: 0 auto 30px; border-radius: 50px; }
+        .frase-impacto { 
+            font-size: 1.3rem; font-style: italic; color: #475569; 
+            max-width: 800px; margin: 0 auto; line-height: 1.6;
+        }
 
-        /* Conteúdo do Trabalho */
-        .conteudo { background-color: #2e7d32; color: white; padding: 50px 20px; position: relative; z-index: 2; transition: 0.5s; }
-        .card-secao { background: white; color: #333; max-width: 800px; margin: 0 auto 30px auto; padding: 35px; border-radius: 12px; text-align: left; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .card-secao h3 { color: #1b5e20; margin-top: 0; font-size: 1.8rem; border-left: 5px solid #ffa000; padding-left: 15px; }
-        .card-secao p { line-height: 1.7; margin-bottom: 15px; }
-        .card-secao ul { padding-left: 0; list-style: none; }
-        .card-secao li { margin-bottom: 25px; padding: 20px; background: #f9f9f9; border-radius: 8px; }
+        /* 6. BLOCOS DE CONTEÚDO (Estilizando os cards brancos onde os textos ficam organizados) */
+        .conteudo { background-color: #1b5e20; padding: 60px 5%; position: relative; z-index: 2; transition: 0.6s ease; }
+        .card-secao { 
+            background: white; color: #1e293b; max-width: 950px; margin: 0 auto 40px; 
+            padding: 50px; border-radius: 20px; text-align: left; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15); border: 1px solid rgba(0,0,0,0.05);
+        }
+        .card-secao h3 { 
+            font-family: 'Poppins', sans-serif; color: #1b5e20; margin-top: 0; 
+            font-size: 2rem; border-left: 8px solid #ffa000; padding-left: 20px; margin-bottom: 25px;
+        }
+        .card-secao p { line-height: 1.8; margin-bottom: 20px; font-size: 1.1rem; }
         
-        /* Estilo das Imagens */
-        .img-ambiental {
-            width: 100%;
-            max-height: 350px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        /* Deixando os tamanhos das imagens ajustados e elegantes */
+        .img-container { width: 100%; border-radius: 15px; overflow: hidden; margin-bottom: 25px; height: 400px; }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Lista bonita com efeito de movimento ao passar o mouse */
+        .lista-acoes { list-style: none; display: grid; gap: 20px; margin-top: 30px; }
+        .lista-acoes li { 
+            padding: 25px; background: #f8fafc; border-radius: 15px; 
+            border-left: 5px solid #ffa000; transition: transform 0.3s;
+        }
+        .lista-acoes li:hover { transform: translateX(10px); }
+        .lista-acoes strong { color: #1b5e20; font-size: 1.2rem; display: block; margin-bottom: 5px; }
+
+        /* Caixa com fundo sutil para a conclusão brilhar */
+        .conclusao-destaque { 
+            background: #f1f8e9; border: 2px solid #1b5e20; padding: 30px; 
+            border-radius: 15px; margin-top: 30px; position: relative;
         }
 
-        /* Ícones e Elementos Pixelados Decorativos */
-        .pixel-box {
-            text-align: center;
-            background: #f1f8e9;
-            padding: 20px;
-            border: 4px solid #1b5e20;
-            border-radius: 8px;
-            margin-top: 20px;
-        }
+        /* 7. RODAPÉ (Fim da página) */
+        footer { padding: 60px 20px; background-color: #f8fafc; color: #64748b; border-top: 1px solid #e2e8f0; }
+        footer strong { color: #1b5e20; }
 
-        footer { padding: 40px 20px; background-color: #f1f1f1; color: #666; font-size: 0.9rem; }
-
-        /* Responsividade */
+        /* 8. RESPONSIVIDADE (Garantindo que o site fique lindo tanto no celular quanto no PC de um jeito automático) */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.2rem; }
-            .hero .subtitulo { font-size: 1.2rem; }
-            .astro { top: 250px; width: 45px; height: 45px; }
-            nav { flex-direction: column; gap: 10px; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero .subtitulo { font-size: 1.3rem; }
+            nav { flex-direction: column; gap: 15px; }
+            .card-secao { padding: 30px; }
+            .img-container { height: 250px; }
+            .astro { top: 220px; width: 50px; height: 50px; }
             .n2 { display: none; }
-            .img-ambiental { max-height: 200px; }
         }
 
-        /* --- MODO ESCURO (NOITE) --- */
-        body.modo-escuro { background: linear-gradient(180deg, #0d1b2a 0%, #1b263b 40%, #000814 85%); color: #e0e0e0; }
-        body.modo-escuro nav { background-color: rgba(13, 27, 42, 0.95); }
-        body.modo-escuro .btn-acessibilidade { color: #fff; }
+        /* 9. REGRAS DO MODO ESCURO (As cores mudam aqui quando o botão da Noite é clicado) */
+        body.modo-escuro { 
+            background: linear-gradient(180deg, #0d1b2a 0%, #1b263b 40%, #000814 85%); 
+            color: #f1f5f9; 
+        }
+        body.modo-escuro nav { background-color: rgba(13, 27, 42, 0.98); }
+        body.modo-escuro .logo { color: #81c784; }
         body.modo-escuro .hero h1 { color: #81c784; }
-        body.modo-escuro .hero .subtitulo { color: #b0bec5; }
-        body.modo-escuro .frase-impacto { color: #cfd8dc; }
-        body.modo-escuro .conteudo { background-color: #1a3a2a; }
-        body.modo-escuro .card-secao { background-color: #1e293b; color: #f8fafc; }
+        body.modo-escuro .hero .subtitulo { color: #cbd5e1; }
+        body.modo-escuro .frase-impacto { color: #94a3b8; }
+        body.modo-escuro .conteudo { background-color: #0b1e16; }
+        body.modo-escuro .card-secao { background-color: #1e293b; border-color: #334155; color: #f1f5f9; }
         body.modo-escuro .card-secao h3 { color: #81c784; }
-        body.modo-escuro .card-secao li { background: #2d3748; color: #e2e8f0; }
-        body.modo-escuro .pixel-box { background: #2d3748; border-color: #81c784; }
-        body.modo-escuro .astro { background-color: #d1d5db; box-shadow: 0 0 20px #ffffff80; left: 85%; }
-        body.modo-escuro .nuvem { background-color: rgba(255, 255, 255, 0.1); }
+        body.modo-escuro .lista-acoes li { background: #334155; color: #e2e8f0; border-left-color: #81c784; }
+        body.modo-escuro .conclusao-destaque { background: #1a2e25; border-color: #81c784; }
+        body.modo-escuro .astro { background-color: #e2e8f0; box-shadow: 0 0 40px #ffffff; left: 85%; top: 60px; }
+        body.modo-escuro .nuvem { background-color: rgba(255, 255, 255, 0.08); }
+        body.modo-escuro footer { background-color: #0b0f19; color: #475569; border-color: #1e293b; }
     </style>
 </head>
 <body>
 
-    <div class="astro"></div>
+    <div class="astro" id="corpoCeleste"></div>
     <div class="nuvem n1"></div>
     <div class="nuvem n2"></div>
 
     <nav>
-        <div class="logo">🌱 Agrinho 2026</div>
+        <div class="logo" onclick="semearFuturo()" title="Clique para semear o futuro!">🌱 Agrinho 2026</div>
+        
         <div class="container-acessibilidade">
-            <button class="btn-acessibilidade" onclick="toggleMenu()" title="Menu de Acessibilidade">⚙️</button>
+            <button class="btn-acessibilidade" onclick="toggleMenu()" aria-label="Abrir opções de acessibilidade">⚙️</button>
             <div class="menu-acessibilidade" id="menuAcessivel">
                 <div class="titulo-acessibilidade">Acessibilidade</div>
-                <button class="btn-opcao" id="btnTema" onclick="mudarTema()">Tema: ☾</button>
-                <button class="btn-opcao" onclick="mudarFonte(2)">Letra A+</button>
-                <button class="btn-opcao" onclick="mudarFonte(-2)">Letra A-</button>
-                <button class="btn-opcao" onclick="ouvirTexto()">Ouvir Texto 🔊</button>
+                <button class="btn-opcao" id="btnTema" onclick="mudarTema()">Tema: Noite ☾</button>
+                <button class="btn-opcao" onclick="mudarFonte(2)">Aumentar Texto A+</button>
+                <button class="btn-opcao" onclick="mudarFonte(-2)">Diminuir Texto A-</button>
+                <button class="btn-opcao" onclick="ouvirTexto()">Ouvir Conteúdo 🔊</button>
             </div>
         </div>
     </nav>
 
-    <div class="hero">
-        <h1>Agro forte, futuro sustentável</h1>
-        <div class="subtitulo">Equilíbrio entre produção e meio ambiente</div>
+    <header class="hero">
+        <h1>Agro forte,<br>futuro sustentável</h1>
+        <p class="subtitulo">Equilíbrio entre produção e meio ambiente</p>
         <div class="linha-decorativa"></div>
-        <p class="frase-impacto">"O verdadeiro progresso no campo acontece quando a tecnologia aumenta a colheita enquanto protege a terra e a floresta que nos sustentam."</p>
-    </div>
+        <p class="frase-impacto">"O progresso no campo só é real quando a tecnologia protege o solo e a água que garantem as colheitas do amanhã."</p>
+    </header>
 
-    <div class="conteudo" id="trabalhoTotal">
-        <div id="introducao" class="card-secao">
-            <h3>O Grande Desafio do Século</h3>
-            <img class="img-ambiental" src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=800&q=80" alt="Campo verde sustentável">
-            <p>Quando comecei a pensar sobre o tema deste ano, uma pergunta não saía da minha cabeça: como vamos conseguir alimentar quase 10 bilhões de pessoas em 2050 sem avançar ou destruir o que restou das nossas florestas?</p>
-            <p>Por muito tempo, todo mundo achava que era impossível conciliar um agro forte com a proteção do meio ambiente. Parecia que tínhamos que escolher um lado. Mas a grande verdade é que a resposta não está em escolher, e sim em equilibrar. E o Paraná tem se tornado um exemplo gigante de como a tecnologia pode ser a melhor amiga da natureza.</p>
-        </div>
+    <main class="conteudo" id="trabalhoTotal">
+        
+        <section class="card-secao" id="introducao">
+            <h3>O Desafio da Nossa Geração</h3>
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1000&q=80" alt="Paisagem de fazenda sustentável ao pôr do sol">
+            </div>
+            <p>Sempre me perguntei como vamos alimentar 10 bilhões de pessoas até 2050 sem destruir as nossas florestas. Durante as minhas pesquisas para este projeto, percebi que a resposta não é "parar de produzir", mas sim produzir com <strong>inteligência e equilíbrio</strong>.</p>
+            <p>Eu descobri que o Paraná é uma referência mundial nesse tema. Aqui, nós estamos a provar que o agro forte e o meio ambiente preservado não são inimigos, mas sim parceiros inseparáveis para um futuro viável.</p>
+        </section>
 
-        <div id="desenvolvimento" class="card-secao">
-            <h3>A Revolução Verde na Prática</h3>
-            <p>Durante a minha pesquisa, decidi focar em três atitudes práticas e reais que mostram como esse equilíbrio funciona na vida real de uma propriedade rural:</p>
-            <ul>
+        <section class="card-secao" id="desenvolvimento">
+            <h3>Tecnologia a Serviço da Terra</h3>
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=1000&q=80" alt="Uso de tecnologia moderna e monitoramento agrícola">
+            </div>
+            <p>Aprofundando o meu estudo, encontrei três ações práticas que mostram como esse equilíbrio acontece de verdade no dia a dia do produtor rural:</p>
+            
+            <ul class="lista-acoes">
                 <li>
-                    <strong>🚜 1. O Protetor do Solo (Plantio Direto)</strong><br>
-                    Descobri que os produtores mais conscientes não saem revirando a terra antes de plantar. Eles colocam as novas sementes por cima dos restos da colheita antiga. Isso cria uma espécie de "cobertor" natural na terra. Esse processo segura a umidade da chuva, evita que a enxurrada crie erosões e mantém o solo vivo e saudável de verdade.
+                    <strong>🚜 Plantio Direto: O Cobertor do Solo</strong>
+                    Eu aprendi que não precisamos revirar a terra. Ao plantar sobre os restos da colheita anterior, criamos uma proteção natural que segura a umidade, evita a erosão e mantém o solo rico em nutrientes sem o uso excessivo de produtos químicos.
                 </li>
                 <li>
-                    <strong>🛸 2. Tecnologia Otimizada (Drones e Monitoramento)</strong><br>
-                    O campo hoje em dia é super moderno. Com drones sobrevoando as lavouras, o produtor consegue ver exatamente quais plantas estão com problemas ou pragas. Em vez de espalhar defensivos por toda a fazenda, ele aplica a quantidade exata apenas no ponto necessitado. Isso gera uma economia enorme e evita poluir a água e o solo em volta.
+                    <strong>🛸 Agricultura de Precisão: Decisões Inteligentes</strong>
+                    Fiquei impressionado ao ver como os drones e os sensores trabalham. O produtor hoje consegue aplicar recursos exatamente onde a planta precisa, evitando desperdícios e garantindo que o lençol freático e os rios fiquem protegidos da poluição.
                 </li>
                 <li>
-                    <strong>🌳 3. A Linha de Frente das Águas (Matas Ciliares)</strong><br>
-                    Não dá para falar de agro forte sem falar de água limpa. Preservar a vegetação nativa na beira dos rios e nascentes é um dever de todos. Essas árvores funcionam como barreiras naturais que filtram a sujeira da chuva e impedem que as margens do rio desmoronem, além de garantir o espaço perfeito para os animais nativos circularem em segurança.
+                    <strong>🌳 Matas Ciliares: As Guardiãs das Águas</strong>
+                    Manter as árvores nas margens dos rios é um compromisso ético. Essas matas funcionam como cílios, filtrando a água da chuva e criando corredores seguros para que os animais da nossa fauna possam circular livremente.
                 </li>
             </ul>
-        </div>
+        </section>
 
-        <div id="piskel" class="card-secao">
-            <h3>Minha Visão em Pixel Art</h3>
-            <p>Como desenvolver desenhos pixelados no celular pode ser muito complexo por conta do tamanho da tela, decidi trazer essa representação artística diretamente para a identidade do site. A Pixel Art é uma linguagem fantástica que une a tecnologia digital com a simplicidade, mostrando que grandes soluções surgem quando conectamos blocos de ideias bem estruturados.</p>
-            
-            <p>Abaixo, adicionei uma belíssima fotografia digital em estilo pixelado e livre de direitos autorais, capturando uma árvore nativa imponente cercada por campos verdes. Ela simboliza o coração da minha pesquisa: a preservação da biodiversidade dentro do espaço produtivo.</p>
-            
-            <div class="pixel-box">
-                <img class="img-ambiental" src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80" alt="Representação artística da natureza">
-                <p style="font-style: italic; font-size: 0.95rem; margin-top: 10px; color: #555;">
-                    "A tecnologia nos dá as ferramentas, mas a natureza nos dá a vida. O futuro sustentável nasce dessa conexão."
-                </p>
+        <section class="card-secao" id="conclusao">
+            <h3>Minha Visão para o Amanhã</h3>
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1000&q=80" alt="Rio limpo protegido pela mata ciliar nativa">
             </div>
-        </div>
-    </div>
+            <p>Este projeto ensinou-me que ser "sustentável" não é um conceito teórico dos livros; é uma prática de cuidado diário com a terra. O "agro forte" que eu defendo é aquele que entende que a natureza é a sua maior aliada.</p>
+            
+            <div class="conclusao-destaque">
+                <p>🌱 <strong>Reflexão Final:</strong> Vejo que o papel do programa Agrinho é semear essa consciência. O equilíbrio entre produção e preservação não é apenas uma meta técnica, é o único caminho para que o nosso estado continue a ser um lugar próspero para as próximas gerações.</p>
+            </div>
+        </section>
+    </main>
 
     <footer>
-        <p><strong>Desenvolvido por:</strong> [Seu Nome Completo]</p>
-        <p>Concurso Agrinho 2026 — Projeto Individual</p>
+        <p><strong>Desenvolvido por:</strong> [Guilherme Schein Palinski]</p>
+        <p>Projeto para o Concurso Agrinho 2026 — Rumo ao Futuro Sustentável</p>
     </footer>
 
     <script>
-        function toggleMenu() { document.getElementById("menuAcessivel").classList.toggle("ativo"); }
+        // Faz a caixinha de acessibilidade aparecer e sumir quando clica na engrenagem
+        function toggleMenu() {
+            const menu = document.getElementById("menuAcessivel");
+            menu.classList.toggle("ativo");
+        }
 
+        // Troca as cores da página inteira e muda o Sol pela Lua
         function mudarTema() {
             document.body.classList.toggle("modo-escuro");
             const btn = document.getElementById("btnTema");
-            btn.innerText = document.body.classList.contains("modo-escuro") ? "Tema: ☼" : "Tema: ☾";
+            if (document.body.classList.contains("modo-escuro")) {
+                btn.innerText = "Tema: Dia ☼";
+            } else {
+                btn.innerText = "Tema: Noite ☾";
+            }
         }
 
-        let tam = 16;
-        function mudarFonte(v) {
-            tam += v;
-            if(tam >= 12 && tam <= 24) document.body.style.fontSize = tam + "px";
+        // Aumenta ou diminui a letra do site para ajudar quem tem dificuldade visual
+        let tamanhoFonte = 18;
+        function mudarFonte(delta) {
+            tamanhoFonte += delta;
+            if (tamanhoFonte >= 14 && tamanhoFonte <= 26) {
+                document.body.style.fontSize = tamanhoFonte + "px";
+            }
         }
 
+        // Função genial que lê os textos do site em voz alta para dar acessibilidade
         function ouvirTexto() {
-            if (window.speechSynthesis.speaking) { window.speechSynthesis.cancel(); return; }
-            const texto = document.getElementById("trabalhoTotal").innerText;
-            const fala = new SpeechSynthesisUtterance(texto);
-            falar.lang = "pt-BR";
-            window.speechSynthesis.speak(falar);
+            if (window.speechSynthesis.speaking) {
+                window.speechSynthesis.cancel();
+                return;
+            }
+            const conteudo = document.getElementById("trabalhoTotal").innerText;
+            const fala = new SpeechSynthesisUtterance(conteudo);
+            fala.lang = "pt-BR";
+            window.speechSynthesis.speak(fala);
+        }
+
+        // O SEGREDO DO SITE: Faz chover folhinhas virtuais e solta um aviso na tela!
+        function semearFuturo() {
+            // Criando 20 folhinhas de uma vez só usando um laço de repetição
+            for (let i = 0; i < 20; i++) {
+                const folha = document.createElement('div');
+                folha.innerText = '🍃';
+                folha.style.position = 'fixed';
+                folha.style.left = Math.random() * 100 + 'vw'; // Espalha as folhas por toda a largura da tela
+                folha.style.top = '-50px'; // Elas começam um pouco acima do topo escondidas
+                folha.style.fontSize = (Math.random() * 15 + 20) + 'px'; // Tamanhos variados para dar realismo
+                folha.style.transition = 'top 3s linear, transform 3s linear';
+                folha.style.zIndex = '10000';
+                folha.style.pointerEvents = 'none';
+                document.body.appendChild(folha);
+                
+                // Faz a folha se mover até o chão e rodar enquanto cai
+                setTimeout(() => {
+                    folha.style.top = '110vh';
+                    folha.style.transform = 'rotate(' + (Math.random() * 720) + 'deg)';
+                }, 100);
+                
+                // Deleta a folha do site depois que ela sumir para não travar o celular
+                setTimeout(() => folha.remove(), 3500);
+            }
+            
+            // Faz aparecer o balãozinho com a mensagem bonita no centro da tela
+            const feedback = document.createElement('div');
+            feedback.innerText = "A semear ideias sustentáveis... 🌱";
+            feedback.style.position = 'fixed';
+            feedback.style.top = '50%';
+            feedback.style.left = '50%';
+            feedback.style.transform = 'translate(-50%, -50%)';
+            feedback.style.backgroundColor = 'rgba(27, 94, 32, 0.95)';
+            feedback.style.color = 'white';
+            feedback.style.padding = '20px 40px';
+            feedback.style.borderRadius = '50px';
+            feedback.style.fontWeight = 'bold';
+            feedback.style.zIndex = '10001';
+            feedback.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
+            document.body.appendChild(feedback);
+            
+            // Tira a mensagem da tela depois de 2 segundos e meio
+            setTimeout(() => feedback.remove(), 2500);
         }
     </script>
 </body>
